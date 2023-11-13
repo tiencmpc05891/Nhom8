@@ -120,8 +120,8 @@
                             <h5>Tổng cộng</h5>
                             <h5>50.030.000đ</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Tiếp tục thanh
-                            toán</button>
+                       <a href="index.php?act=checkout"> <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Tiếp tục thanh
+                            toán</button></a>
                     </div>
                 </div>
             </div>
