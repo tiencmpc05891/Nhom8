@@ -39,6 +39,9 @@ if (isset($_SESSION['admin'])) {
         case 'adddm':
             include "./categories/add.php";
             break;
+        case 'updatedm':
+            include "./categories/update.php";
+            break;
         case 'listsp':
             include "./products/list.php";
             break;

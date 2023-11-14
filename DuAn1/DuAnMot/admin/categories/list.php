@@ -45,7 +45,7 @@
                                         <td>1</td>
                                         <td>iPhone</td>
                                         <td>
-                                            <a href="#"><button class="btn btn-warning">Sửa</button></a>
+                                            <a href="index.php?act=updatedm"><button class="btn btn-warning">Sửa</button></a>
                                             <a href="#"><button class="btn btn-danger">Xóa</button></a>
                                         </td>
 
@@ -54,7 +54,7 @@
                                         <td>2</td>
                                         <td>SamSung</td>
                                         <td>
-                                            <a href="#"><button class="btn btn-warning">Sửa</button></a>
+                                            <a href="index.php?act=updatedm"><button class="btn btn-warning">Sửa</button></a>
                                             <a href="#"><button class="btn btn-danger">Xóa</button></a>
                                         </td>
 
