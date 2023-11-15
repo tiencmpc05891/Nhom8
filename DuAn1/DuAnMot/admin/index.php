@@ -45,13 +45,21 @@ if (isset($_SESSION['admin'])) {
         case 'listsp':
             include "./products/list.php";
             break;
+        case 'updatesp':
+            include "./products/update.php";
+            break;
         case 'addsp':
             include "./products/add.php";
             break;
         case 'dsuser':
             include "./users/list.php";
             break;
-
+        case 'dsbl':
+            include "./binhluan/list.php";
+            break;
+        case 'listbill':
+            include "./bill/listbill.php";
+            break;
         default:
 
             break;
