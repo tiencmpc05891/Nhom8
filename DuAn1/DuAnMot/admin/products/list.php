@@ -52,7 +52,7 @@
                                         <td>100</td>
                                         <td>50</td>
                                         <td>
-                                            <a href="index.php?act=suasp&id=1"><button class="btn btn-warning" type="button">Sửa</button></a>
+                                            <a href="index.php?act=updatesp"><button class="btn btn-warning" type="button">Sửa</button></a>
                                             <a href="index.php?act=xoasp&id=1"><button class="btn btn-danger" type="button">Xóa</button></a>
                                         </td>
                                     </tr>

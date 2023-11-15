@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 if (is_array($sanpham)) {
     extract($sanpham);
 }
@@ -8,7 +8,7 @@ if (is_file($hinhpath)) {
 } else {
     $hinh = "không có hình";
 }
-?>
+?> -->
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -65,11 +65,15 @@ if (is_file($hinhpath)) {
                                     <div class="mb-3">
                                         <label for="level" class="col-form-label">Tên sản phẩm:</label>
 
-                                        <input type="text" class="form-control" name="tensp" value="<?= $name ?>">
+                                        <!-- <input type="text" class="form-control" name="tensp" value="<?= $name ?>"> -->
+                                        <input type="text" class="form-control" name="tensp" value="Tên sản phẩm 1" >
+
                                     </div>
                                     <div class="mb-3">
                                         <label for="level" class="col-form-label">Giá sản phẩm:</label>
-                                        <input type="text" class="form-control" name="giasp" value="<?= $price ?>">
+                                        <!-- <input type="text" class="form-control" name="giasp" value="<?= $price ?>"> -->
+                                        <input type="text" class="form-control" name="giasp" value="100">
+
                                     </div>
 
                                     <div class="mb-3">
@@ -82,9 +86,12 @@ if (is_file($hinhpath)) {
 
                                     <div class="mb-3">
                                         <label for="level" class="col-form-label">Mô tả:</label>
-                                        <textarea name="mota" id="" cols="30" rows="5"
+                                        <!-- <textarea name="mota" id="" cols="30" rows="5"
                                             style="width:100%; border:1px #CCC solid"
-                                            class="col-form-label"><?= $mota ?></textarea>
+                                            class="col-form-label"><?= $mota ?></textarea> -->
+                                            <textarea name="mota" id="" cols="30" rows="5"
+                                            style="width:100%; border:1px #CCC solid"
+                                            class="col-form-label">Mô tả</textarea>
                                     </div>
 
 

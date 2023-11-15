@@ -39,8 +39,14 @@ if (isset($_SESSION['admin'])) {
         case 'adddm':
             include "./categories/add.php";
             break;
+        case 'updatedm':
+            include "./categories/update.php";
+            break;
         case 'listsp':
             include "./products/list.php";
+            break;
+        case 'updatesp':
+            include "./products/update.php";
             break;
         case 'addsp':
             include "./products/add.php";
@@ -48,7 +54,12 @@ if (isset($_SESSION['admin'])) {
         case 'dsuser':
             include "./users/list.php";
             break;
-
+        case 'dsbl':
+            include "./binhluan/list.php";
+            break;
+        case 'listbill':
+            include "./bill/listbill.php";
+            break;
         default:
 
             break;
