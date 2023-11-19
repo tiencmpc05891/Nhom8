@@ -7,7 +7,6 @@ include "model/sanpham.php";
 include "model/taikhoan.php";
 include "model/cart.php";
 include "global.php";
-include "site/header.php";
 include "site/navmenu.php";
 $dsdm = loadall_danhmuc();
 
