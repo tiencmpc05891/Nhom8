@@ -87,7 +87,7 @@ $dssp = loadall_sanpham("", $iddm);
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="color-<?php echo $dm['id']; ?>">
                             <label class="custom-control-label" for="color-<?php echo $dm['id']; ?>">
-                                <a class="text-dark" href="index.php?act=sanpham&iddm=<?php echo $dm['id']; ?>"><?php echo $dm['name']; ?></a>
+                                <a class="text-dark" href="index.php?act=shop&iddm=<?php echo $dm['id']; ?>"><?php echo $dm['name']; ?></a>
                             </label>
                             <span class="badge border font-weight-normal">10</span>
                         </div>
