@@ -80,9 +80,6 @@ $dssp = loadall_sanpham("", $iddm);
                         <label class="custom-control-label" for="price-all">Tất cả loại</label>
                         <span class="badge border font-weight-normal">4</span>
                     </div>
-                    <!-- Color Start -->
-
-
                     <?php foreach ($dsdm as $dm) : ?>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="color-<?php echo $dm['id']; ?>">
@@ -93,17 +90,8 @@ $dssp = loadall_sanpham("", $iddm);
                         </div>
                     <?php endforeach; ?>
                 </form>
-
-                <!-- Color End -->
-
-
-                </form>
             </div>
-            <!-- Color End -->
 
-            <!-- Size Start -->
-
-            <!-- Size End -->
         </div>
         <!-- Shop Sidebar End -->
 
@@ -138,6 +126,7 @@ $dssp = loadall_sanpham("", $iddm);
                     </div>
                 </div>
                 <?php
+
                 foreach ($dssp as $sp) {
                     extract($sp);
                     $linksp = "index.php?act=detail&idsp=" . $sp['id'];
@@ -159,8 +148,8 @@ $dssp = loadall_sanpham("", $iddm);
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="<?= $linksp ?>"><?= $name ?></a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5><?= number_format($price) ?><sup>đ</sup></h5>
-                                    <h6 class="text-muted ml-2"><del><?= number_format($price) ?><sup>đ</sup></del></h6>
+                                    <h5><?= number_format($price, 0, '.', '.'); ?><sup>đ</sup></h5>
+                                    <h6 class="text-muted ml-2"><del><?= number_format($price, 0, '.', '.'); ?><sup>đ</sup></del></h6>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
                                     <small class="fa fa-star text-primary mr-1"></small>
