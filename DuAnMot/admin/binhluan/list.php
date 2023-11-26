@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -37,7 +38,7 @@
                                         <th scope="col">IdUser</th>
                                         <th scope="col">IdPro</th>
                                         <th scope="col">Ngày bình luận</th>
-                                        <th scope="col">VAI TRÒ</th>
+                                        <th scope="col">Vai trò</th>
 
                                     </tr>
                                 </thead>
@@ -53,7 +54,7 @@
                             <td>' . $iduser . '</td>
                             <td>' . $idpro . '</td>
                             <td>' . $ngaybinhluan . '</td>
-                            <td><a href="' . $suabl . '"><input  class="btn btn-warning" type="button" value="Sửa"></a> <a href="' . $xoabl . '"><input class="btn btn-danger"  type="button" value="Xóa"></a></td>
+                            <td></a> <a href="' . $xoabl . '"><input class="btn btn-danger"  type="button" value="Xóa"></a></td>
 
                             </tr>';
                                 }
