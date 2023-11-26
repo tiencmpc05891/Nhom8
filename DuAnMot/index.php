@@ -9,8 +9,9 @@ include "model/cart.php";
 include "global.php";
 include "site/header.php";
 include "site/navmenu.php";
-$dsdm = loadall_danhmuc();
 
+$dsdm = loadall_danhmuc();
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 
 if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
