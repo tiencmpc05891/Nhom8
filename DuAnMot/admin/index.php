@@ -7,6 +7,7 @@ include "../model/sanpham.php";
 include "../model/taikhoan.php";
 include "../model/binhluan.php";
 include "../model/cart.php";
+include "../model/post.php";
 include "head.php";
 
 // Kiểm tra nếu người dùng đã đăng nhập
@@ -141,6 +142,69 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listsanpham = loadall_sanpham();
                 include "sanpham/list.php";
                 break;
+            /////
+            case 'addbv':
+                //kiểm tra xem người dùng có click vào nút add hay không
+                if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
+                    $tieude = $_POST['tieude'];
+                    $noidung = $_POST['noidung'];
+                    $img = $_FILES['hinh']['name'];
+                    $target_dir = "../upload/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+
+                    } else {
+
+                    }
+                    insert_baiviet($tieude, $noidung, $img);
+                    $thongbao = "Thêm thành công";
+                }
+                $listbaiviet = loadall_baiviet();
+                include "post/add.php";
+                break;
+
+            case 'listbv':
+                $listbaiviet = loadall_baiviet();
+                include "post/list.php";
+                break;
+            case 'xoabv':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    delete_baiviet($_GET['id']);
+                }
+                $listbaiviet = loadall_baiviet();
+                include "post/list.php";
+                break;
+            case 'suabv':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $baiviet = loadone_baiviet($_GET['id']);
+                }
+                $listbaiviet = loadall_baiviet();
+                include "post/update.php";
+                break;
+            case 'updatebv':
+                if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
+                    $id = $_POST['id'];
+                    $tieude = $_POST['tieude'];
+                    $noidung = $_POST['noidung'];
+                    $img = $_FILES['hinh']['name'];
+                    $target_dir = "../upload/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                        // echo "The file"
+                        //     . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . "has been uploade.";
+                    } else {
+                        // echo "Xin lỗi không thể upload file";
+                    }
+                    update_baiviet($id, $tieude, $noidung, $img);
+                    $thongbao = "Cập nhật thành công";
+                }
+                $listbaiviet = loadall_baiviet();
+
+                include "post/list.php";
+                break;
+            /////
+
+
             case 'dskh':
                 $listtaikhoan = loadall_taikhoan();
                 include "taikhoan/list.php";
