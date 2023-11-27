@@ -23,7 +23,20 @@ function loadall_sanpham_home()
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
-
+function loadall_sanpham($kyw = "", $iddm = 0)
+{
+    $sql = "select * from sanpham where 1 ";
+    if ($kyw != "") {
+        $sql .= " and name like '%" . $kyw . "%'";
+    }
+    if ($iddm > 0) {
+        $sql .= " and iddm ='" . $iddm . "'";
+    }
+    $sql .= " order by id asc";
+    //nối chuỗi
+    $listsanpham = pdo_query($sql);
+    return $listsanpham;
+}
 function load_ten_dm($iddm)
 {
     if ($iddm > 0) {
