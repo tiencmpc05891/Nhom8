@@ -80,11 +80,13 @@ $dssp = loadall_sanpham("", $iddm);
                         <label class="custom-control-label" for="price-all">Tất cả loại</label>
                         <span class="badge border font-weight-normal">4</span>
                     </div>
-                    <?php foreach ($dsdm as $dm) : ?>
+                    <?php foreach ($dsdm as $dm): ?>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="color-<?php echo $dm['id']; ?>">
                             <label class="custom-control-label" for="color-<?php echo $dm['id']; ?>">
-                                <a class="text-dark" href="index.php?act=shop&iddm=<?php echo $dm['id']; ?>"><?php echo $dm['name']; ?></a>
+                                <a class="text-dark" href="index.php?act=shop&iddm=<?php echo $dm['id']; ?>">
+                                    <?php echo $dm['name']; ?>
+                                </a>
                             </label>
                             <span class="badge border font-weight-normal">10</span>
                         </div>
@@ -107,7 +109,8 @@ $dssp = loadall_sanpham("", $iddm);
                         </div>
                         <div class="ml-2">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                    data-toggle="dropdown">Sorting</button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">Latest</a>
                                     <a class="dropdown-item" href="#">Popularity</a>
@@ -115,7 +118,8 @@ $dssp = loadall_sanpham("", $iddm);
                                 </div>
                             </div>
                             <div class="btn-group ml-2">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                    data-toggle="dropdown">Showing</button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">10</a>
                                     <a class="dropdown-item" href="#">20</a>
@@ -131,7 +135,7 @@ $dssp = loadall_sanpham("", $iddm);
                     extract($sp);
                     $linksp = "index.php?act=detail&idsp=" . $sp['id'];
                     $img = $img_path . $img;
-                ?>
+                    ?>
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -139,17 +143,25 @@ $dssp = loadall_sanpham("", $iddm);
                                     <img class="img-fluid w-100" src="<?= $img ?>" alt="">
                                 </a>
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i
+                                            class="fa fa-search"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="<?= $linksp ?>"><?= $name ?></a>
+                                <a class="h6 text-decoration-none text-truncate" href="<?= $linksp ?>">
+                                    <?= $name ?>
+                                </a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5><?= number_format($price, 0, '.', '.'); ?><sup>đ</sup></h5>
-                                    <h6 class="text-muted ml-2"><del><?= number_format($price, 0, '.', '.'); ?><sup>đ</sup></del></h6>
+                                    <h5>
+                                        <?= number_format($price, 0, '.', '.'); ?><sup>đ</sup>
+                                    </h5>
+                                    <h6 class="text-muted ml-2"><del>
+                                            <?= number_format($price, 0, '.', '.'); ?><sup>đ</sup>
+                                        </del></h6>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
                                     <small class="fa fa-star text-primary mr-1"></small>
