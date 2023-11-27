@@ -159,7 +159,7 @@ $dssp = loadall_sanpham("", $iddm);
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="mb-4">1 đánh giá cho "<?= $name ?>"</h4>
+                                <h4 class="mb-4">1 review for "Product Name"</h4>
                                 <div class="media mb-4">
                                     <img src="content/img/iphone-11-trang-600x600.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                     <div class="media-body">
@@ -178,11 +178,11 @@ $dssp = loadall_sanpham("", $iddm);
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="mb-4">Để lại đánh giá</h4>
-                                <small>Địa chỉ email của bạn sẽ không được công bố. Các trường bắt buộc được đánh dấu
+                                <h4 class="mb-4">Leave a review</h4>
+                                <small>Your email address will not be published. Required fields are marked
                                     *</small>
                                 <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Đánh giá số * của bạn :</p>
+                                    <p class="mb-0 mr-2">Your Rating * :</p>
                                     <div class="text-primary">
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
@@ -193,19 +193,19 @@ $dssp = loadall_sanpham("", $iddm);
                                 </div>
                                 <form>
                                     <div class="form-group">
-                                        <label for="message">Đánh giá của bạn *</label>
+                                        <label for="message">Your Review *</label>
                                         <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">Tên của bạn *</label>
-                                        <input type="text" class="form-control" id="name" value="<?= $user ?>">
+                                        <label for="name">Your Name *</label>
+                                        <input type="text" class="form-control" id="name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email của bạn *</label>
-                                        <input type="email" class="form-control" id="email" value="<?= $email ?>">
+                                        <label for="email">Your Email *</label>
+                                        <input type="email" class="form-control" id="email">
                                     </div>
                                     <div class="form-group mb-0">
-                                        <input type="submit" value="Gửi bình luận" class="btn btn-primary px-3">
+                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                     </div>
                                 </form>
                             </div>

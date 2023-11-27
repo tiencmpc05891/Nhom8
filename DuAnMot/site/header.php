@@ -65,10 +65,13 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
                 <div class="d-inline-flex align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                            </svg> <?= isset($user) ? $user : '' ?>
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
+                            <?= isset($user) ? $user : '' ?>
                             <!--  toán tử ba ngôi (isset($user) ? $user : '') 
                             để kiểm tra xem biến $user có tồn tại không. 
                             Nếu tồn tại, thì sẽ hiển thị tên người dùng, ngược lại sẽ hiển thị một chuỗi trống. 
@@ -85,11 +88,13 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
                     <a href="" class="btn px-0 ml-2">
                         <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                        <span class="badge text-dark border border-dark rounded-circle"
+                            style="padding-bottom: 2px;">0</span>
                     </a>
                     <a href="" class="btn px-0 ml-2">
                         <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                        <span class="badge text-dark border border-dark rounded-circle"
+                            style="padding-bottom: 2px;">0</span>
                     </a>
                 </div>
             </div>
@@ -102,14 +107,15 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm sản phẩm">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
+            <form action="index.php?act=sanpham" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="kyw" placeholder="Tìm sản phẩm">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                      
                     </div>
                 </form>
             </div>
