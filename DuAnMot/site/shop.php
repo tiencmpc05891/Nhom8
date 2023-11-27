@@ -2,6 +2,22 @@
     .text-dark {
         color: black;
     }
+
+    .notification {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        display: none;
+        z-index: 9999;
+    }
+
+    .success {
+        background-color: #4CAF50;
+    }
 </style>
 
 <?php
@@ -126,7 +142,6 @@ $dssp = loadall_sanpham("", $iddm);
                     </div>
                 </div>
                 <?php
-
                 foreach ($dssp as $sp) {
                     extract($sp);
                     $linksp = "index.php?act=detail&idsp=" . $sp['id'];
@@ -159,10 +174,20 @@ $dssp = loadall_sanpham("", $iddm);
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(1,5k)</small>
                                 </div>
+                                <form action="index.php?act=addtocart" method="post">
+                                    <input type="hidden" name="id" value="<?= $id ?>">
+                                    <input type="hidden" name="name" value="<?= $name ?>">
+                                    <input type="hidden" name="img" value="<?= $img ?>">
+                                    <input type="hidden" name="price" value="<?= $price ?>">
+                                    <input type="hidden" name="soluong" value="1">
+                                    <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm vào giỏ hàng">
+                                </form>
                             </div>
                         </div>
                     </div>
                 <?php } ?>
+
+
 
 
 

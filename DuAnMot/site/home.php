@@ -117,12 +117,14 @@ $dssp_hot =  loadall_sanpham_hot();
         <?php
         foreach ($dssp_noibat as $sp) {
             extract($sp);
-            $linksp = "index.php?act=detail&idsp=" . $id;
+            $linksp = "index.php?act=detail&idsp=" . $sp['id'];
+            $img = $img_path . $img;
+
         ?>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="<?php echo $img_path . $img; ?>" alt="<?php echo $name; ?>">
+                        <img class="img-fluid w-100" src="<?= $img ?>" alt="<?php echo $name; ?>">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -134,7 +136,7 @@ $dssp_hot =  loadall_sanpham_hot();
                         <a class="h6 text-decoration-none text-truncate" href="<?php echo $linksp; ?>"><?php echo $name; ?></a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5><?php echo number_format($price, 0, '.', '.'); ?>đ</h5>
-                            <h6 class="text-muted ml-2"><del><?php echo number_format($price, 0, '.', '.');?>đ</del></h6>
+                            <h6 class="text-muted ml-2"><del><?php echo number_format($price, 0, '.', '.'); ?>đ</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -144,12 +146,19 @@ $dssp_hot =  loadall_sanpham_hot();
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small>(1,5k)</small>
                         </div>
+                        <form action="index.php?act=addtocart" method="post">
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <input type="hidden" name="name" value="<?= $name ?>">
+                            <input type="hidden" name="img" value="<?= $img ?>">
+                            <input type="hidden" name="price" value="<?= $price ?>">
+                            <input type="hidden" name="soluong" value="1">
+                            <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm vào giỏ hàng">
+                        </form>
+
                     </div>
                 </div>
             </div>
-        <?php
-        }
-        ?>
+        <?php } ?>
     </div>
 </div>
 <!-- Products End -->
@@ -191,11 +200,13 @@ $dssp_hot =  loadall_sanpham_hot();
         foreach ($dssp_hot as $sp) {
             extract($sp);
             $linksp = "index.php?act=detail&idsp=" . $id;
+            $img = $img_path . $img;
+
         ?>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="<?php echo $img_path . $img; ?>" alt="<?php echo $name; ?>">
+                        <img class="img-fluid w-100" src="<?= $img ?>" alt="<?php echo $name; ?>">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -206,7 +217,7 @@ $dssp_hot =  loadall_sanpham_hot();
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="<?php echo $linksp; ?>"><?php echo $name; ?></a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5><?php echo number_format($price, 0, '.', '.');?>đ</h5>
+                            <h5><?php echo number_format($price, 0, '.', '.'); ?>đ</h5>
                             <h6 class="text-muted ml-2"><del><?php echo number_format($price, 0, '.', '.'); ?>đ</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
@@ -217,12 +228,19 @@ $dssp_hot =  loadall_sanpham_hot();
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small>(1,5k)</small>
                         </div>
+                        <form action="index.php?act=addtocart" method="post">
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <input type="hidden" name="name" value="<?= $name ?>">
+                            <input type="hidden" name="img" value="<?= $img ?>">
+                            <input type="hidden" name="price" value="<?= $price ?>">
+                            <input type="hidden" name="soluong" value="1">
+                            <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm vào giỏ hàng">
+                        </form>
+
                     </div>
                 </div>
             </div>
-        <?php
-        }
-        ?>
+        <?php } ?>
     </div>
 </div>
 <!-- Products End -->
