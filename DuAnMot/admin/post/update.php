@@ -55,7 +55,7 @@ if (is_file($hinhpath)) {
                                     <div class="mb-3">
 
                                         <label for="level" class="col-form-label">Hình ảnh: </label>
-                                        <?= $img ?>
+                                        <?= $hinh ?>
                                         <input type="file" name="hinh">
 
                                     </div>
