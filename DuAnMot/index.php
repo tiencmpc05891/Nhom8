@@ -71,6 +71,38 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             }
             header('Location: index.php?act=cart');
             break;
+        case 'billcomform':
+            if (isset($_POST['dongydathang']) && ($_POST['dongydathang'])) {
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $address = $_POST['address'];
+                $tel = $_POST['tel'];
+                $pttt = $_POST['pttt'];
+                $ngaydathang = date('h:i:sa d/m/Y');
+                $tongdonhang = tongdonhang();
+
+                // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                if (isset($_SESSION['user'])) {
+                    $iduser = $_SESSION['user']['id'];
+                } else {
+                    $iduser = 0; // Hoặc một giá trị khác đại diện cho người dùng không đăng nhập
+                }
+
+                $idbill = insert_bill($iduser, $name, $email, $address, $tel, $pttt, $ngaydathang, $tongdonhang);
+
+                // Kiểm tra và xử lý chi tiết đơn hàng
+                if (isset($_SESSION['mycart']) && !empty($_SESSION['mycart'])) {
+                    foreach ($_SESSION['mycart'] as $cart) {
+                        insert_cart($iduser, $cart[0], $cart[2], $cart[1], $cart[3], $cart[4], $cart[5], $idbill);
+                    }
+                    // Xóa giỏ hàng của người dùng
+                    $_SESSION['mycart'] = [];
+                }
+            }
+            $bill = loadone_bill($idbill);
+            $billct = loadall_cart($idbill);
+            include "site/billcomform.php";
+            break;
         case 'cart':
             include "site/cart.php";
             break;
