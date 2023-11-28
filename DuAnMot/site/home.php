@@ -1,7 +1,11 @@
 <?
-
+include './model/banner.php';
 $dssp_noibat = loadall_sanpham_noibat();
 $dssp_hot =  loadall_sanpham_hot();
+
+
+// Make sure $listbanner is defined even if it's empty
+$listbanner = loadall_banner();
 
 ?>
 
@@ -17,39 +21,30 @@ $dssp_hot =  loadall_sanpham_hot();
                     <li data-target="#header-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
+                <?php
+        foreach ($listbanner as $banner) {
+            extract($banner);
+
+            $img = $img_path . $img;
+
+        ?>
                     <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="content/img/pngtree-cool-new-mobile-phone-promotion-purple-banner-image_183067.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="<?php echo $img; ?>" style="object-fit: cover;">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">DT HYU</h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Cửa điện thoại đến từ Việt Nam</p>
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"><?php echo $text1; ?></h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn"><?php echo $text2; ?></p>
                                 <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="index.php?act=shop">Mua ngay</a>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="content/img/Banner-Samsung-1786x642-2021.jpg" style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">DT HYU</h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Cửa điện thoại đến từ Việt Nam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop.php">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="content/img/pngtree-cool-new-mobile-phone-promotion-purple-banner-image_183067.jpg" style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">DT HYU</h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Cửa điện thoại đến từ Việt Nam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop.php">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
+                 
+                    <?php } ?>
+                    
                 </div>
             </div>
         </div>
+
         <div class="col-lg-4">
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="content/img/iphone-14-pro-1660186222336.webp" alt="">

@@ -188,6 +188,16 @@ ob_start();
           </a>
         </li>
         <li class="nav-item">
+          <a href="index.php?act=listbn" class="nav-link">
+            <i class="nav-icon fa-solid fa-folder-plus"></i>
+            <p>
+              Quản lí banner
+              <!-- <span class="right badge badge-danger">New</span> -->
+              <span class="badge badge-info right">6</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="index.php?act=listbill" class="nav-link">
             <i class="nav-icon fa-solid fa-shopping-cart"></i>
             <p>
