@@ -188,6 +188,16 @@ ob_start();
           </a>
         </li>
         <li class="nav-item">
+          <a href="index.php?act=listbv" class="nav-link">
+            <i class="nav-icon fa-solid fas fa-comment"></i>
+            <p>
+              Quản lí bài viết
+              <!-- <i class="fas fa-angle-left right"></i> -->
+              <span class="badge badge-info right">6</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="index.php?act=listbill" class="nav-link">
             <i class="nav-icon fa-solid fa-shopping-cart"></i>
             <p>
@@ -207,6 +217,7 @@ ob_start();
             </p>
           </a>
         </li>
+        
         <li class="nav-item">
           <a href="javascript:void(0);" onclick="confirmLogout()" class="nav-link">
             <i class="nav-icon fa-solid fas fa-sign-out-alt"></i>

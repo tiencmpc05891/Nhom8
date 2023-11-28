@@ -1,6 +1,12 @@
 <?php
 if (is_array($dm))
     extract($dm);
+  
+    // Hiển thị thông báo lỗi nếu có
+    if (isset($thongbao) && !empty($thongbao)) {
+        echo '<div class="error-message">' . $thongbao . '</div>';
+    }
+ 
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
