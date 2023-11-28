@@ -1,13 +1,13 @@
 <?php
-            if (isset($thongbao) && ($thongbao != ""))
-                echo $thongbao;
+if (isset($thongbao) && ($thongbao != ""))
+    echo $thongbao;
 
 
-            ?>
-        </form>
-    </div>
+?>
+</form>
 </div>
-</div> 
+</div>
+</div>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -34,16 +34,28 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <?php
+                        if (isset($thongbao) && $thongbao != "") {
+                            // Hiển thị thông báo thành công với màu xanh
+                            echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+                        }
 
+                        if (isset($loi) && $loi != "") {
+                            // Hiển thị thông báo lỗi với màu đỏ
+                            echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+                        }
+                        ?>
                         <div class="card-body">
                             <form action="index.php?act=addbn" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
-                                    
-                                 
-                                <div class="mb-3">
+
+
+                                    <div class="mb-3">
+                                        <label for="topic-name" class="col-form-label">Tiêu đề 1</label>
                                         <input type="text" class="form-control" name="text1" placeholder="Text 1">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="topic-name" class="col-form-label">Tiêu đề 2</label>
                                         <input type="text" class="form-control" name="text2" placeholder="Text 2">
                                     </div>
 
@@ -52,20 +64,17 @@
                                         <input type="file" name="hinh" class="col-form-label">
                                     </div>
 
-                                    
+
                                 </div>
                                 <div class="modal-footer justify-content-between">
-                                    <a href="index.php?act=listbn"> <input type="button" class="btn btn-primary" value="Danh sách"></input></a>
+                                    <a href="index.php?act=listbn"> <input type="button" class="btn btn-primary"
+                                            value="Danh sách"></input></a>
 
-                                    <input type="submit" name="themmoi" class="btn btn-success" value="Thêm mới"></input></a>
+                                    <input type="submit" name="themmoi" class="btn btn-success"
+                                        value="Thêm mới"></input></a>
 
                                 </div>
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
 
-
-                                ?>
                             </form>
                         </div>
                         <!-- /.card-body -->
@@ -93,16 +102,17 @@
             </div>
             <form action="index.php?act=addbn" method="POST">
                 <div class="modal-body">
-                  
+
                     <div class="mb-3">
                         <label for="topic-name" class="col-form-label">Banner</label>
                         <input type="file" name="img" class="col-form-label" id="">
                     </div>
-                    
-                   
+
+
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <a href="index.php?act=listbn"> <input type="button" class="btn btn-primary" value="Danh sách"></input></a>
+                    <a href="index.php?act=listbn"> <input type="button" class="btn btn-primary"
+                            value="Danh sách"></input></a>
 
                     <input type="submit" name="themmoi" class="btn btn-success" value="Thêm mới"></input></a>
 

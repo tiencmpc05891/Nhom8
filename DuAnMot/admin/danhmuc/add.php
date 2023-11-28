@@ -15,11 +15,22 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    
+
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <?php
+            if (isset($thongbao) && $thongbao != "") {
+                // Hiển thị thông báo thành công với màu xanh
+                echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+            }
+
+            if (isset($loi) && $loi != "") {
+                // Hiển thị thông báo lỗi với màu đỏ
+                echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+            }
+            ?>
 
             <div class="row">
                 <div class="col-12">
@@ -28,6 +39,7 @@
                             <h3 class="card-title ">Danh sách chủ đề</h3>
                         </div> -->
                         <!-- /.card-header -->
+
                         <div class="card-body">
                             <form action="index.php?act=adddm" method="POST">
                                 <div class="modal-body">
@@ -37,24 +49,15 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="topic-name" class="col-form-label">Tên danh mục:</label>
-                                        <input type="text" class="form-control" name="tenloai" placeholder="Tên danh mục">
-                                    </div>
-
-
+                                        <input type="text" class="form-control" name="tenloai"
+                                            placeholder="Tên danh mục">
+                                    </div>                            
                                 </div>
                                 <div class="modal-footer justify-content-between">
-                                <a href="index.php?act=listdm"> <input type="button" class="btn btn-primary" value="Danh sách"></input></a>
-                                 
-                                    <input type="submit" name="themmoi" class="btn btn-success" value="Thêm mới"></input></a>
-                         
+                                    <a href="index.php?act=listdm"> <input type="button" class="btn btn-primary"
+                                            value="Danh sách"></a>
+                                    <input type="submit" name="themmoi" class="btn btn-success" value="Thêm mới">
                                 </div>
-                                
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-
-
-                                ?>
                             </form>
                         </div>
                         <!-- /.card-body -->

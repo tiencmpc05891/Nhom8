@@ -50,23 +50,27 @@
                                     $suasp = "index.php?act=suasp&id=" . $id;
                                     $xoasp = "index.php?act=xoasp&id=" . $id;
                                     $hinhpath = "../upload/" . $img;
+
                                     if (is_file($hinhpath)) {
                                         $hinh = "<img src='" . $hinhpath . "' height='80' >";
                                     } else {
                                         $hinh = "không có hình";
                                     }
-                                    echo '                        <tr>
-                          
-                            <td>' . $id . '</td>
-                            <td>' . $name . '</td>
-                            <td>' . $hinh . '</td>
-                            <td>' . $price . '</td>
-                            <td>' . $luotxem . '</td>
-                            <td><a href="' . $suasp . '"><input class="btn btn-warning" type="button"  value="Sửa"></a> <a href="' . $xoasp . '"><input type="button" class="btn btn-danger" value="Xóa"></a></td>
-                        </tr>';
+
+                                    echo '                        
+                                    <tr>
+                                        <td>' . $id . '</td>
+                                        <td>' . $name . '</td>
+                                        <td>' . $hinh . '</td>
+                                        <td>' . $price . '</td>
+                                        <td>' . $luotxem . '</td>
+                                        <td>
+                                            <a href="' . $suasp . '"><input class="btn btn-warning" type="button"  value="Sửa"></a> 
+                                            <a href="#" onclick="confirmDelete(\'' . $xoasp . '\')"><input type="button" class="btn btn-danger" value="Xóa"></a>
+                                        </td>
+                                    </tr>';
                                 }
                                 ?>
-
 
                             </table>
                         </div>
@@ -100,3 +104,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Chuyển hướng đến URL xóa nếu người dùng chọn "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>

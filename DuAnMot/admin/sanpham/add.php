@@ -41,12 +41,7 @@
                 <a href="index.php?act=listsp"><input type="button" value="Danh sách"></a>
 
             </div>
-            <?php
-            if (isset($thongbao) && ($thongbao != ""))
-                echo $thongbao;
-
-
-            ?>
+           
         </form>
     </div>
 </div>
@@ -77,7 +72,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                    <?php
+            if (isset($thongbao) && $thongbao != "") {
+                // Hiển thị thông báo thành công với màu xanh
+                echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+            }
 
+            if (isset($loi) && $loi != "") {
+                // Hiển thị thông báo lỗi với màu đỏ
+                echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+            }
+            ?>
                         <div class="card-body">
                             <form action="index.php?act=addsp" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
@@ -101,7 +106,7 @@
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="giasp" placeholder="Giá sản phẩm">
                                     </div>
-
+                                 
                                     <div class="mb-3">
                                         <label for="topic-name" class="col-form-label">Hình ảnh</label>
                                         <input type="file" name="hinh" class="col-form-label">
@@ -123,12 +128,7 @@
                                     <input type="submit" name="themmoi" class="btn btn-success" value="Thêm mới"></input></a>
 
                                 </div>
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-
-
-                                ?>
+                               
                             </form>
                         </div>
                         <!-- /.card-body -->

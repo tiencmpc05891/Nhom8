@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -45,20 +44,24 @@
                                 <?php
                                 foreach ($listbinhluan as $binhluan) {
                                     extract($binhluan);
-                                    $suabl = "index.php?act=suabl&id=" . $id;
+                                   
                                     $xoabl = "index.php?act=xoabl&id=" . $id;
-                                    echo '                        <tr>
-                         
-                            <td>' . $id . '</td>
-                            <td>' . $noidung . '</td>
-                            <td>' . $iduser . '</td>
-                            <td>' . $idpro . '</td>
-                            <td>' . $ngaybinhluan . '</td>
-                            <td></a> <a href="' . $xoabl . '"><input class="btn btn-danger"  type="button" value="Xóa"></a></td>
 
-                            </tr>';
+                                    echo '<tr>
+            <td>' . $id . '</td>
+            <td>' . $noidung . '</td>
+            <td>' . $iduser . '</td>
+            <td>' . $idpro . '</td>
+            <td>' . $ngaybinhluan . '</td>
+            <td>
+                
+                <a href="#" onclick="confirmDelete(\'' . $xoabl . '\')"><input class="btn btn-danger" type="button" value="Xóa"></a>
+            </td>
+          </tr>';
                                 }
                                 ?>
+
+
                                 <!-- <tfoot>
 
                                 <tr>
@@ -84,3 +87,13 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Redirect to the delete URL if the user clicks "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>
