@@ -29,7 +29,7 @@ function showcart($del, $isCheckout = false)
 
         foreach ($_SESSION['mycart'] as $cart) {
             $price = floatval($cart[3]);
-            $thanhtien =$price* $cart[4];
+            $thanhtien = $price * $cart[4];
             $tong += $thanhtien;
 
             echo '<tr>';
@@ -91,7 +91,7 @@ function showcart($del, $isCheckout = false)
         }
 
         echo '</tbody>';
-        
+
         echo '            <tfoot>
                             <tr>
                                 <td colspan="4">Tổng đơn hàng</td>
@@ -105,11 +105,11 @@ function showcart($del, $isCheckout = false)
 
         <a href="index.php?act=shop"><input class="btn btn-success" type="button" value="Tiếp tục đặt hàng"></a>     <a href="index.php?act=delcart"><input class="btn btn-danger" type="button" value="Xóa tất cả giỏ hàng"></a>
        </div>';
-            
+
     }
 
     echo '<div class="col-lg-4">';
-    
+
     if (!$isCheckout) {
         echo '<form class="mb-3" action="">
                 <div class="input-group">
@@ -246,7 +246,8 @@ function loadall_bill($iduser = 0)
 {
 
     $sql = "select * from bill where 1";
-    if ($iduser > 0) $sql .= " AND iduser=" . $iduser;
+    if ($iduser > 0)
+        $sql .= " AND iduser=" . $iduser;
     $sql .= " order by id desc ";
     $listbill = pdo_query($sql);
     return $listbill;
