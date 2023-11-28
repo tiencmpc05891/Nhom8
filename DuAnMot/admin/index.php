@@ -7,7 +7,10 @@ include "../model/sanpham.php";
 include "../model/taikhoan.php";
 include "../model/binhluan.php";
 include "../model/cart.php";
+
 include "../model/post.php";
+include "../model/banner.php";
+
 include "head.php";
 
 // Kiểm tra nếu người dùng đã đăng nhập
@@ -176,6 +179,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 include "sanpham/list.php";
                 break;
 
+
             case 'addbv':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $tieude = $_POST['tieude'];
@@ -255,6 +259,83 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
 
 
 
+
+                case 'addbn':
+                    if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
+                        $text1 = $_POST['text1'];
+                        $text2 = $_POST['text2'];
+                        $img = $_FILES['hinh']['name'];
+                        $target_dir = "../upload/";
+                        $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+    
+                        if (empty($img)) {
+                            $thongbao = "Vui lòng nhập banner!";
+                        } else {
+                            if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                                insert_banner($img, $text1, $text2);
+                                echo '<script>alert("Thêm banner thành công!");</script>';
+                            } else {
+                                echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
+                            }
+                        }
+                    }
+                    $listbanner = loadall_banner();
+                    include "banner/add.php";
+                    break;
+    
+    
+                case 'listbn':
+                    $listbanner = loadall_banner();
+                    include "banner/list.php";
+                    break;
+                case 'xoabn':
+                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+    
+                        echo '<script>';
+                        echo 'if (confirm("Bạn có chắc chắn muốn xóa banner này không?")) {';
+    
+                        delete_banner($_GET['id']);
+    
+                        echo '  alert("Xóa thành công!");';
+    
+                        echo '}';
+                        echo '</script>';
+                    }
+    
+                    $listbanner = loadall_banner();
+                    include "banner/list.php";
+                    break;
+    
+                case 'suabn':
+                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                        $banner = loadone_banner($_GET['id']);
+                    }
+                    $listbanner = loadall_banner();
+                    include "banner/update.php";
+                    break;
+                case 'updatebn':
+                    if (isset($_POST['capnhat']) && $_POST['capnhat']) {
+                        if (isset($_POST['id'])) {
+                            $id = $_POST['id'];
+                            $text1 = $_POST['text1'];
+                            $text2 = $_POST['text2'];
+                            $img = $_FILES['hinh']['name'];
+                            $target_dir = "../upload/";
+                            $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+    
+                            if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                                update_banner($id, $img, $text1, $text2);
+                                echo '<script>alert("Cập nhật thành công!");</script>';
+                            } else {
+                                echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
+                            }
+                        } else {
+    echo '<script>alert("Lỗi: Không có ID được chuyển đến!");</script>';
+                        }
+                    }
+                    $listbanner = loadall_banner();
+                    include "banner/list.php";
+                    break;
 
             case 'dskh':
                 $listtaikhoan = loadall_taikhoan();

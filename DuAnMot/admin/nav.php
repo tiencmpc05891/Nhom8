@@ -188,11 +188,19 @@ ob_start();
           </a>
         </li>
         <li class="nav-item">
+
           <a href="index.php?act=listbv" class="nav-link">
             <i class="nav-icon fa-solid fas fa-comment"></i>
             <p>
               Quản lí bài viết
               <!-- <i class="fas fa-angle-left right"></i> -->
+
+          <a href="index.php?act=listbn" class="nav-link">
+            <i class="nav-icon fa-solid fa-folder-plus"></i>
+            <p>
+              Quản lí banner
+              <!-- <span class="right badge badge-danger">New</span> -->
+
               <span class="badge badge-info right">6</span>
             </p>
           </a>
