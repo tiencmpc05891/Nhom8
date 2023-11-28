@@ -8,9 +8,10 @@ function insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan)
 function loadall_binhluan($idpro)
 {
     $sql = "select * from binhluan where 1";
-    if($idpro>0) $sql.=" AND idpro='".$idpro."'";
-    $sql.=" order by id desc";
-     $listbl=pdo_query($sql);
+    if ($idpro > 0)
+        $sql .= " AND idpro='" . $idpro . "'";
+    $sql .= " order by id desc";
+    $listbl = pdo_query($sql);
     return $listbl;
 }
 
