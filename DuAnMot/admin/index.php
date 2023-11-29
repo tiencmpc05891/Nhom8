@@ -35,18 +35,21 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 include "home.php";
                 break;
             case 'adddm':
-                if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
+                if (!empty($_POST['themmoi'])) {
                     $tenloai = $_POST['tenloai'];
 
                     if (empty($tenloai)) {
-                        echo "<script>alert('Vui lòng nhập tên loại!');</script>";
+                        $loi = "Vui lòng điền loại sản phẩm!";
                     } else {
+                        $thongbao = "Thêm loại thành công";
                         insert_danhmuc($tenloai);
-                        echo "<script>alert('Thêm thành công');</script>";
+
                     }
                 }
+
                 include "danhmuc/add.php";
                 break;
+
 
 
             case 'listdm':
@@ -56,12 +59,14 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 break;
             case 'xoadm':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                    echo '<script>alert("Ban co muon xoa loai san pham nay khong?");</script>';
+
                     delete_danhmuc($_GET['id']);
-                    echo '<script>alert("Xoa thanh cong!");</script>';
+
                 } else {
-                    echo '<script>alert("Loi khi xoa loai san pham!");</script>';
+                    $thongbao = "Không thể xóa danh mục này vì có sản phẩm liên quan.";
                 }
+
+
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
@@ -77,17 +82,17 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $tenloai = $_POST['tenloai'];
                     $id = $_POST['id'];
                     if (empty($tenloai)) {
-                        $thongbao = "Vui lòng nhập tên loại!";
+
                     } else {
                         update_danhmuc($id, $tenloai);
-                        $thongbao = "Cập nhật thành công";
+
                     }
                 }
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
 
-            case 'addsp':              
+            case 'addsp':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $iddm = $_POST['iddm'];
                     $tensp = $_POST['tensp'];
@@ -99,15 +104,15 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
 
                     if (empty($tensp) || empty($mota) || empty($thongtin) || empty($hinh) || empty($iddm)) {
-                        $thongbao = "Vui lòng điền đầy đủ thông tin!";
+                        $loi = "Vui lòng điền đầy đủ thông tin!";
                     } else if (!is_numeric($giasp) || $giasp <= 0) {
-                        $thongbao = "giá sản phẩm không hợp lệ!";
+                        $loi = "giá sản phẩm không hợp lệ!";
                     } else {
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                             insert_sanpham($tensp, $giasp, $hinh, $mota, $thongtin, $iddm);
-                            echo '<script>alert("Thêm sản phẩm thành công!");</script>';
+                            $thongbao = "Thêm sản phẩm thành công!";
                         } else {
-                            echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
+                            $loi = "Lỗi khi thêm!";
                         }
                     }
                 }
@@ -122,19 +127,14 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 } else {
                     $kyw = '';
                     $iddm = 0;
-                }                
+                }
                 $listdanhmuc = loadall_danhmuc();
                 $listsanpham = loadall_sanpham($kyw, $iddm);
                 include "sanpham/list.php";
                 break;
             case 'xoasp':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                    echo '<script>';
-                    echo 'if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {';
                     delete_sanpham($_GET['id']);
-                    echo '  alert("Xóa thành công!");';
-                    echo '}';
-                    echo '</script>';
                 }
 
                 $listsanpham = loadall_sanpham("", 0);
@@ -161,15 +161,15 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
 
                     if (empty($tensp) || empty($mota) || empty($thongtin) || empty($hinh) || empty($iddm)) {
-                        $thongbao = "Vui lòng điền đầy đủ thông tin!";
+                        $loi = "Vui lòng điền đầy đủ thông tin!";
                     } else if (!is_numeric($giasp) || $giasp <= 0) {
-                        $thongbao = "Giá sản phẩm không hợp lệ!";
+                        $loi = "Giá sản phẩm không hợp lệ!";
                     } else {
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                             update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh);
-                            echo '<script>alert("Cập nhật sản phẩm thành công!");</script>';
+                            $thongbao = "Update thành công!";
                         } else {
-                            echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
+                            $loi = "Lỗi khi update!";
                         }
                     }
                 }
@@ -189,13 +189,13 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
 
                     if (empty($tieude) || empty($noidung) || empty($img)) {
-                        $thongbao = "Vui lòng điền đầy đủ thông tin!";
+                        $loi = "Vui lòng điền đầy đủ!";
                     } else {
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                             insert_baiviet($tieude, $noidung, $img);
-                            echo '<script>alert("Thêm bài viết thành công!");</script>';
+                            $thongbao = "Thêm thành công!";
                         } else {
-                            echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
+                            $loi = "Xảy ra lỗi!";
                         }
                     }
                 }
@@ -210,16 +210,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 break;
             case 'xoabv':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-
-                    echo '<script>';
-                    echo 'if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {';
-
                     delete_baiviet($_GET['id']);
-
-                    echo '  alert("Xóa thành công!");';
-
-                    echo '}';
-                    echo '</script>';
                 }
 
                 $listbaiviet = loadall_baiviet();
@@ -245,11 +236,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
 
                         update_baiviet($id, $tieude, $noidung, $img);
-
-                        echo '<script>alert("Cập nhật thành công!");</script>';
                     } else {
-
-                        echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
                     }
                 }
 
@@ -260,82 +247,71 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
 
 
 
-                case 'addbn':
-                    if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
+            case 'addbn':
+                if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
+                    $text1 = $_POST['text1'];
+                    $text2 = $_POST['text2'];
+                    $img = $_FILES['hinh']['name'];
+                    $target_dir = "../upload/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+
+                    if (empty($img)) {
+                        $loi = "Vui lòng nhập đầy đủ!";
+                    } else {
+                        if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                            insert_banner($img, $text1, $text2);
+                            $thongbao = "Thêm thành công!";
+                        } else {
+
+                        }
+                    }
+                }
+                $listbanner = loadall_banner();
+                include "banner/add.php";
+                break;
+
+
+            case 'listbn':
+                $listbanner = loadall_banner();
+                include "banner/list.php";
+                break;
+            case 'xoabn':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    delete_banner($_GET['id']);
+                }
+
+                $listbanner = loadall_banner();
+                include "banner/list.php";
+                break;
+
+            case 'suabn':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $banner = loadone_banner($_GET['id']);
+                }
+                $listbanner = loadall_banner();
+                include "banner/update.php";
+                break;
+            case 'updatebn':
+                if (isset($_POST['capnhat']) && $_POST['capnhat']) {
+                    if (isset($_POST['id'])) {
+                        $id = $_POST['id'];
                         $text1 = $_POST['text1'];
                         $text2 = $_POST['text2'];
                         $img = $_FILES['hinh']['name'];
                         $target_dir = "../upload/";
                         $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-    
-                        if (empty($img)) {
-                            $thongbao = "Vui lòng nhập banner!";
+
+                        if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                            update_banner($id, $img, $text1, $text2);
+
                         } else {
-                            if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                                insert_banner($img, $text1, $text2);
-                                echo '<script>alert("Thêm banner thành công!");</script>';
-                            } else {
-                                echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
-                            }
+
                         }
                     }
-                    $listbanner = loadall_banner();
-                    include "banner/add.php";
-                    break;
-    
-    
-                case 'listbn':
-                    $listbanner = loadall_banner();
-                    include "banner/list.php";
-                    break;
-                case 'xoabn':
-                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-    
-                        echo '<script>';
-                        echo 'if (confirm("Bạn có chắc chắn muốn xóa banner này không?")) {';
-    
-                        delete_banner($_GET['id']);
-    
-                        echo '  alert("Xóa thành công!");';
-    
-                        echo '}';
-                        echo '</script>';
-                    }
-    
-                    $listbanner = loadall_banner();
-                    include "banner/list.php";
-                    break;
-    
-                case 'suabn':
-                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                        $banner = loadone_banner($_GET['id']);
-                    }
-                    $listbanner = loadall_banner();
-                    include "banner/update.php";
-                    break;
-                case 'updatebn':
-                    if (isset($_POST['capnhat']) && $_POST['capnhat']) {
-                        if (isset($_POST['id'])) {
-                            $id = $_POST['id'];
-                            $text1 = $_POST['text1'];
-                            $text2 = $_POST['text2'];
-                            $img = $_FILES['hinh']['name'];
-                            $target_dir = "../upload/";
-                            $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-    
-                            if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                                update_banner($id, $img, $text1, $text2);
-                                echo '<script>alert("Cập nhật thành công!");</script>';
-                            } else {
-                                echo '<script>alert("Có lỗi xảy ra khi upload hình ảnh!");</script>';
-                            }
-                        } else {
-    echo '<script>alert("Lỗi: Không có ID được chuyển đến!");</script>';
-                        }
-                    }
-                    $listbanner = loadall_banner();
-                    include "banner/list.php";
-                    break;
+                }
+                $listbanner = loadall_banner();
+                include "banner/list.php";
+                break;
 
             case 'dskh':
                 $listtaikhoan = loadall_taikhoan();
@@ -377,9 +353,9 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 break;
             case 'xoatk':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                    echo '<script>alert("Bạn muốn xóa tài khoản này không?");</script>';
+
                     delete_taikhoan($_GET['id']);
-                    echo '<script>alert("Xóa thành công!");</script>';
+
                 }
                 $listtaikhoan = loadall_taikhoan();
                 include "taikhoan/list.php";
@@ -391,12 +367,10 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
             case 'xoabl':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     // Thêm mã JavaScript để xác nhận xóa
-                    echo '<script>';
-                    echo 'if (confirm("Bạn có chắc chắn muốn xóa bình luận này không?")) {';
+
+
                     delete_binhluan($_GET['id']);
-                    echo '  alert("Xóa thành công!");';
-                    echo '}';
-                    echo '</script>';
+
                 }
 
                 $listbinhluan = loadall_binhluan(0);
@@ -433,7 +407,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 // Xử lý đăng xuất
                 unset($_SESSION['user']);
                 header('location: login.php');
-                
+
                 exit();
             default:
                 include "home.php";

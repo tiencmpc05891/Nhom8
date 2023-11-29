@@ -47,20 +47,22 @@
                                     $suatk = "index.php?act=suatk&id=" . $id;
                                     $xoatk = "index.php?act=xoatk&id=" . $id;
 
-                                    echo '                        <tr>
-
-                            <td>' . $id . '</td>
-                            <td>' . $user . '</td>
-                            <td>' . $pass . '</td>
-                            <td>' . $email . '</td>
-                            <td>' . $address . '</td>
-                            <td>' . $tel . '</td>
-                            <td>' . ($role == 1 ? 'Admin' : 'User') . '</td>
-                            
-                            <td><a href="' . $suatk . '"><input  class="btn btn-warning" type="button" value="Sửa"></a> <a href="' . $xoatk . '"><input class="btn btn-danger"  type="button" value="Xóa"></a></td>
-                        </tr>';
+                                    echo ' <tr>
+                <td>' . $id . '</td>
+                <td>' . $user . '</td>
+                <td>' . $pass . '</td>
+                <td>' . $email . '</td>
+                <td>' . $address . '</td>
+                <td>' . $tel . '</td>
+                <td>' . ($role == 1 ? 'Admin' : 'User') . '</td>
+                <td>
+                    <a href="' . $suatk . '"><input class="btn btn-warning" type="button" value="Sửa"></a>
+                    <a href="#" onclick="confirmDelete(\'' . $xoatk . '\')"><input class="btn btn-danger" type="button" value="Xóa"></a>
+                </td>
+            </tr>';
                                 }
                                 ?>
+
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -75,4 +77,14 @@
     </section>
     <!-- /.content -->
 </div>
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Redirect to the delete URL if the user clicks "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>
 <!-- /.content-wrapper -->

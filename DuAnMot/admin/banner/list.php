@@ -43,25 +43,31 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                foreach ($listbanner as $banner) {
-                                    extract($banner);
-                                    $suabn = "index.php?act=suabn&id=" . $id;
-                                    $xoabn = "index.php?act=xoabn&id=" . $id;
-                                    $hinhpath = "../upload/" . $img;
-                                    if (is_file($hinhpath)) {
-                                        $hinh = "<img src='" . $hinhpath . "' height='80' >";
-                                    } else {
-                                        $hinh = "không có hình";
-                                    }
-                                    echo '<tr>
-                <td>' . $id . '</td>
-                <td>' . $hinh . '</td>
-                <td>' . $text1 . '</td>
-                <td>' . $text2 . '</td>
-                <td><a href="' . $suabn . '"><input class="btn btn-warning" type="button"  value="Sửa"></a> <a href="' . $xoabn . '"><input type="button" class="btn btn-danger" value="Xóa"></a></td>
-              </tr>';
-                                }
-                                ?>
+foreach ($listbanner as $banner) {
+    extract($banner);
+    $suabn = "index.php?act=suabn&id=" . $id;
+    $xoabn = "index.php?act=xoabn&id=" . $id;
+    $hinhpath = "../upload/" . $img;
+    
+    if (is_file($hinhpath)) {
+        $hinh = "<img src='" . $hinhpath . "' height='80' >";
+    } else {
+        $hinh = "không có hình";
+    }
+
+    echo '<tr>
+            <td>' . $id . '</td>
+            <td>' . $hinh . '</td>
+            <td>' . $text1 . '</td>
+            <td>' . $text2 . '</td>
+            <td>
+                <a href="' . $suabn . '"><input class="btn btn-warning" type="button" value="Sửa"></a>
+                <a href="#" onclick="confirmDelete(\'' . $xoabn . '\')"><input class="btn btn-danger" type="button" value="Xóa"></a>
+            </td>
+          </tr>';
+}
+?>
+
                             </table>
 
                         </div>
@@ -95,3 +101,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Redirect to the delete URL if the user clicks "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>

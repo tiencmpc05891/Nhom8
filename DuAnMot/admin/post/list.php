@@ -57,7 +57,10 @@
                 <td>' . $tieude . '</td>
                 <td>' . $noidung . '</td>
                 <td>' . $hinh . '</td>
-                <td><a href="' . $suabv . '"><input class="btn btn-warning" type="button"  value="Sửa"></a> <a href="' . $xoabv . '"><input type="button" class="btn btn-danger" value="Xóa"></a></td>
+                <td>
+                    <a href="' . $suabv . '"><input class="btn btn-warning" type="button"  value="Sửa"></a>
+                    <a href="#" onclick="confirmDelete(\'' . $xoabv . '\')"><input type="button" class="btn btn-danger" value="Xóa"></a>
+                </td>
               </tr>';
                                 }
                                 ?>
@@ -94,3 +97,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Chuyển hướng đến URL xóa nếu người dùng chọn "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>

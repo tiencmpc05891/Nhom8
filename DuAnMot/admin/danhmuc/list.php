@@ -21,9 +21,9 @@
     <section class="content">
         <div class="container-fluid">
             <div class="d-flex justify-content-end">
-               <a href="index.php?act=adddm"><button type="button" class="btn btn-primary mb-2">
-                    Thêm danh mục
-                </button></a> 
+                <a href="index.php?act=adddm"><button type="button" class="btn btn-primary mb-2">
+                        Thêm danh mục
+                    </button></a>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -46,12 +46,16 @@
                                     extract($danhmuc);
                                     $suadm = "index.php?act=suadm&id=" . $id;
                                     $xoadm = "index.php?act=xoadm&id=" . $id;
-                                    echo '                        <tr>
-                     
-                            <td>' . $id . '</td>
-                            <td>' . $name . '</td>
-                            <td><a href="' . $suadm . '"><input class="btn btn-warning" type="button" value="Sửa"></a> <a href="' . $xoadm . '"><input class="btn btn-danger" type="button" value="Xóa"></a></td>
-                        </tr>';
+
+                                    echo '                        
+                                <tr>
+                                    <td>' . $id . '</td>
+                                    <td>' . $name . '</td>
+                                    <td>
+                                        <a href="' . $suadm . '"><input class="btn btn-warning" type="button" value="Sửa"></a> 
+                                        <a href="#" onclick="confirmDelete(\'' . $xoadm . '\')"><input class="btn btn-danger" type="button" value="Xóa"></a>
+                                    </td>
+                                </tr>';
                                 }
                                 ?>
                                 <!-- <tfoot>
@@ -78,4 +82,16 @@
     </section>
     <!-- /.content -->
 </div>
+
+<script>
+    function confirmDelete(url) {
+        var r = confirm("Bạn có chắc chắn muốn xóa?");
+        if (r == true) {
+            window.location.href = url; // Chuyển hướng đến URL xóa nếu người dùng chọn "OK"
+        } else {
+            alert("Xóa đã bị hủy bỏ.");
+        }
+    }
+</script>
+
 <!-- /.content-wrapper -->
