@@ -23,10 +23,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <!-- <div class="card-header">
-                            <h3 class="card-title ">Danh sách chủ đề</h3>
-                        </div> -->
-                        <!-- /.card-header -->
+                    <?php
+            if (isset($thongbao) && $thongbao != "") {
+                // Hiển thị thông báo thành công với màu xanh
+                echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+            }
+
+            if (isset($loi) && $loi != "") {
+                // Hiển thị thông báo lỗi với màu đỏ
+                echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+            }
+            ?>
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>

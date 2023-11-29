@@ -24,6 +24,17 @@
                         Thêm sản phẩm mới
                     </button></a>
             </div>
+            <?php
+            if (isset($thongbao) && $thongbao != "") {
+                // Hiển thị thông báo thành công với màu xanh
+                echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+            }
+            if (isset($loi) && $loi != "") {
+                // Hiển thị thông báo lỗi với màu đỏ
+                echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+            }
+           
+            ?>
             <div class="row">
                 <div class="col-12">
                     <div class="card">

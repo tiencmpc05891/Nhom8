@@ -36,7 +36,7 @@ if (is_file($hinhpath)) {
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                 
+                
                         <div class="card-body">
                             <form action="index.php?act=updatesp" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
@@ -96,12 +96,7 @@ if (is_file($hinhpath)) {
                                     <input type="submit" class="btn btn-success" name="capnhat" value="Cập nhật"></input></a>
 
                                 </div>
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-
-
-                                ?>
+                              
                             </form>
                         </div>
                         <!-- /.card-body -->
