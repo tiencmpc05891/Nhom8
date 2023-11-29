@@ -27,15 +27,22 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <!-- <div class="card-header">
-                            <h3 class="card-title ">Danh sách chủ đề</h3>
-                        </div> -->
-                        <!-- /.card-header -->
+                        <?php
+                        if (isset($thongbao) && $thongbao != "") {
+                            // Hiển thị thông báo thành công với màu xanh
+                            echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
+                        }
+
+                        if (isset($loi) && $loi != "") {
+                            // Hiển thị thông báo lỗi với màu đỏ
+                            echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
+                        }
+                        ?>
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        
+
                                         <th scope="col">*</th>
                                         <th scope="col">Banner</th>
                                         <th scope="col">Text 1</th>
@@ -43,19 +50,19 @@
                                     </tr>
                                 </thead>
                                 <?php
-foreach ($listbanner as $banner) {
-    extract($banner);
-    $suabn = "index.php?act=suabn&id=" . $id;
-    $xoabn = "index.php?act=xoabn&id=" . $id;
-    $hinhpath = "../upload/" . $img;
-    
-    if (is_file($hinhpath)) {
-        $hinh = "<img src='" . $hinhpath . "' height='80' >";
-    } else {
-        $hinh = "không có hình";
-    }
+                                foreach ($listbanner as $banner) {
+                                    extract($banner);
+                                    $suabn = "index.php?act=suabn&id=" . $id;
+                                    $xoabn = "index.php?act=xoabn&id=" . $id;
+                                    $hinhpath = "../upload/" . $img;
 
-    echo '<tr>
+                                    if (is_file($hinhpath)) {
+                                        $hinh = "<img src='" . $hinhpath . "' height='80' >";
+                                    } else {
+                                        $hinh = "không có hình";
+                                    }
+
+                                    echo '<tr>
             <td>' . $id . '</td>
             <td>' . $hinh . '</td>
             <td>' . $text1 . '</td>
@@ -65,8 +72,8 @@ foreach ($listbanner as $banner) {
                 <a href="#" onclick="confirmDelete(\'' . $xoabn . '\')"><input class="btn btn-danger" type="button" value="Xóa"></a>
             </td>
           </tr>';
-}
-?>
+                                }
+                                ?>
 
                             </table>
 

@@ -63,12 +63,7 @@ if (is_array($dm))
                          
                                 </div>
                                 
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-
-
-                                ?>
+                                
                             </form>
                         </div>
                         <!-- /.card-body -->

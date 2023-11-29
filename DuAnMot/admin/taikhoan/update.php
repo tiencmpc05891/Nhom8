@@ -52,10 +52,7 @@
                                     <input type="submit" name="capnhat" class="btn btn-success" value="Cập nhật"></input>
                                 </div>
 
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-                                ?>
+                                
                             </form>
 
                         </div>
