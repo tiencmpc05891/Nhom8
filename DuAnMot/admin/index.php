@@ -57,19 +57,19 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
-            case 'xoadm':
-                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-
-                    delete_danhmuc($_GET['id']);
-
-                } else {
-                    $thongbao = "Không thể xóa danh mục này vì có sản phẩm liên quan.";
-                }
-
-
-                $listdanhmuc = loadall_danhmuc();
-                include "danhmuc/list.php";
-                break;
+                case 'xoadm':
+                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                        if (delete_danhmuc($_GET['id'])) {
+                           
+                        } else {
+                           
+                        }
+                    } 
+                
+                    $listdanhmuc = loadall_danhmuc();
+                    include "danhmuc/list.php";
+                    break;
+                
 
             case 'suadm':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
@@ -82,10 +82,10 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $tenloai = $_POST['tenloai'];
                     $id = $_POST['id'];
                     if (empty($tenloai)) {
-
+                        $loi = "Vui lòng điền loại sản phẩm!";
                     } else {
                         update_danhmuc($id, $tenloai);
-
+                        $thongbao = "Cập nhật thành công!";
                     }
                 }
                 $listdanhmuc = loadall_danhmuc();
@@ -148,36 +148,30 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "sanpham/update.php";
                 break;
-            case 'updatesp':
-                if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
-                    $id = $_POST['id'];
-                    $iddm = $_POST['iddm'];
-                    $tensp = $_POST['tensp'];
-                    $giasp = $_POST['giasp'];
-                    $mota = $_POST['mota'];
-                    $thongtin = $_POST['thongtin'];
-                    $hinh = $_FILES['hinh']['name'];
-                    $target_dir = "../upload/";
-                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-
-                    if (empty($tensp) || empty($mota) || empty($thongtin) || empty($hinh) || empty($iddm)) {
-                        $loi = "Vui lòng điền đầy đủ thông tin!";
-                    } else if (!is_numeric($giasp) || $giasp <= 0) {
-                        $loi = "Giá sản phẩm không hợp lệ!";
-                    } else {
+                case 'updatesp':
+                    if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
+                        $id = $_POST['id'];
+                        $iddm = $_POST['iddm'];
+                        $tensp = $_POST['tensp'];
+                        $giasp = $_POST['giasp'];
+                        $mota = $_POST['mota'];
+                        $thongtin = $_POST['thongtin'];
+                        $hinh = $_FILES['hinh']['name'];
+                        $target_dir = "../upload/";
+                        $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                            update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh);
-                            $thongbao = "Update thành công!";
+                            // echo "The file"
+                            //     . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . "has been uploade.";
                         } else {
-                            $loi = "Lỗi khi update!";
+                           
                         }
+                        update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh);
+                        $thongbao = "Cập nhật thành công";
                     }
-                }
-
-                $listdanhmuc = loadall_danhmuc();
-                $listsanpham = loadall_sanpham();
-                include "sanpham/list.php";
-                break;
+                    $listdanhmuc = loadall_danhmuc();
+                    $listsanpham = loadall_sanpham();
+                    include "sanpham/list.php";
+                    break;
 
 
             case 'addbv':

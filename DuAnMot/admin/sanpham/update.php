@@ -36,17 +36,7 @@ if (is_file($hinhpath)) {
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                    <?php
-            if (isset($thongbao) && $thongbao != "") {
-                // Hiển thị thông báo thành công với màu xanh
-                echo '<div class="alert alert-success" role="alert">' . $thongbao . '</div>';
-            }
-
-            if (isset($loi) && $loi != "") {
-                // Hiển thị thông báo lỗi với màu đỏ
-                echo '<div class="alert alert-danger" role="alert">' . $loi . '</div>';
-            }
-            ?>
+                 
                         <div class="card-body">
                             <form action="index.php?act=updatesp" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
@@ -101,7 +91,7 @@ if (is_file($hinhpath)) {
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <input type="hidden" name="id" value="<?= $id ?>">
-                                    <a href="index.php?act=listsp"> <input type="button" class="btn btn-primary" value="Danh sách"></input></a>
+                                    <a href="index.php?act=updatesp"> <input type="button" class="btn btn-primary" value="Danh sách"></input></a>
 
                                     <input type="submit" class="btn btn-success" name="capnhat" value="Cập nhật"></input></a>
 
