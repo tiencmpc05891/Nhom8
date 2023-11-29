@@ -87,7 +87,23 @@
     function confirmDelete(url) {
         var r = confirm("Bạn có chắc chắn muốn xóa?");
         if (r == true) {
-            window.location.href = url; // Chuyển hướng đến URL xóa nếu người dùng chọn "OK"
+            // Send an asynchronous request to delete the item
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    // Successful deletion
+                    alert("Xóa thất bại!");
+                    window.location.reload(); // You can also redirect or update the page as needed
+                } else {
+                    // Failed deletion
+                    alert("Xóa thành công.");
+                    window.location.reload(); 
+                }
+            };
+
+            xhr.send();
         } else {
             alert("Xóa đã bị hủy bỏ.");
         }

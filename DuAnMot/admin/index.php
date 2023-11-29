@@ -62,7 +62,9 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                         if (delete_danhmuc($_GET['id'])) {
                            
                         } else {
-                           
+                            error_log("Xóa danh mục thất bại!"); // Log the error
+                            http_response_code(500); // Set HTTP status code for internal server error
+                            echo "Xóa danh mục thất bại!";
                         }
                     } 
                 
