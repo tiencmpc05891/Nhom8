@@ -9,9 +9,9 @@ $idpro = isset($_REQUEST['idpro']) ? $_REQUEST['idpro'] : null;
 $dsbl = loadall_binhluan($idpro);
 
 if (!isset($_SESSION['user'])) {
-    // Hiển thị thông báo hoặc thực hiện các hành động khác tùy thuộc vào yêu cầu của bạn
-    echo "Bạn cần đăng nhập để thực hiện hành động này.";
-    exit(); // Dừng việc thực hiện tiếp theo
+   
+    
+    
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
@@ -212,7 +212,7 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                     </div>
                 </form>';
             } else {
-                echo '<p>Bạn cần đăng nhập để thêm bình luận.</p>';
+                echo '<p>Bạn cần đăng nhập để bình luận.</p>';
             }
             ?>
         </div>

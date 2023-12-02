@@ -23,31 +23,7 @@ function loadall_sanpham_home()
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
-function loadall_sanpham($kyw = "", $iddm = 0)
-{
-    $sql = "select * from sanpham where 1 ";
-    if ($kyw != "") {
-        $sql .= " and name like '%" . $kyw . "%'";
-    }
-    if ($iddm > 0) {
-        $sql .= " and iddm ='" . $iddm . "'";
-    }
-    $sql .= " order by id asc";
-    //nối chuỗi
-    $listsanpham = pdo_query($sql);
-    return $listsanpham;
-}
-function load_ten_dm($iddm)
-{
-    if ($iddm > 0) {
-        $sql = "select * from danhmuc where id=" . $iddm;
-        $dm = pdo_query_one($sql);
-        extract($dm);
-        return $name;
-    } else {
-        return "";
-    }
-}
+
 function loadone_sanpham($id)
 {
     $sql = "select * from sanpham where id=" . $id;
@@ -80,5 +56,29 @@ function loadall_sanpham_hot() {
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
-// Sửa đổi hàm Loadall_sanpham để không lấy sản phẩm thuộc danh mục nổi bật
+function loadall_sanpham($kyw = "", $iddm = 0)
+{
+    $sql = "select * from sanpham where 1 ";
+    if ($kyw != "") {
+        $sql .= " and name like '%" . $kyw . "%'";
+    }
+    if ($iddm > 0) {
+        $sql .= " and iddm ='" . $iddm . "'";
+    }
+    $sql .= " order by id asc";
+    //nối chuỗi
+    $listsanpham = pdo_query($sql);
+    return $listsanpham;
+}
+function load_ten_dm($iddm)
+{
+    if ($iddm > 0) {
+        $sql = "select * from danhmuc where id=" . $iddm;
+        $dm = pdo_query_one($sql);
+        extract($dm);
+        return $name;
+    } else {
+        return "";
+    }
+}
 ?>
