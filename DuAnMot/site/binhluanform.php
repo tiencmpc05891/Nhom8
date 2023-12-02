@@ -4,39 +4,51 @@ session_start();
 include "../model/pdo.php";
 include "../model/binhluan.php";
 
-
 $idpro = isset($_REQUEST['idpro']) ? $_REQUEST['idpro'] : null;
 $dsbl = loadall_binhluan($idpro);
 
 if (!isset($_SESSION['user'])) {
-   
-    
-    
+
+
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
     $commentId = $_GET['id'];
     delete_comment($commentId);
     header("Location: " . $_SERVER['HTTP_REFERER']);
-
+    exit();
 }
+
 if (isset($_POST['saveEdit'])) {
     $editedMessage = $_POST['editedMessage'];
     $commentId = $_POST['commentId'];
 
     update_comment($commentId, $editedMessage);
     header("Location: " . $_SERVER['PHP_SELF']);
-
+    exit();
 }
+
+$error = '';  // Initialize an error variable
+
 if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
     $noidung = $_POST['noidung'];
     $idpro = $_POST['idpro'];
     $iduser = $_SESSION['user']['id'];
     $ngaybinhluan = date('h:i:sa d/m/y');
-    insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan);
-    header("Location: " . $_SERVER['PHP_SELF'] . "?idpro=" . $idpro);
-    exit;
+    $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : null;
+
+    // Server-side validation: Check if the comment content is empty
+    if (empty($noidung)) {
+        $error = "Bình luận không được để trống!";
+    } else {
+        // Process the form data if the comment content is not empty
+        insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan, $parentid);
+        header("Location: " . $_SERVER['PHP_SELF'] . "?idpro=" . $idpro);
+        exit();
+    }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -194,30 +206,41 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
     </style>
 
     <div class="tab-pane fade" id="tab-pane-3">
-    <div class="row">
-        <div class="col-md-6">
-            <?php
-            // Kiểm tra xem người dùng đã đăng nhập hay chưa
-            if (isset($_SESSION['user'])) {
-                echo '
-                <h4 class="mb-4"></h4>
-                <form action="' . $_SERVER['PHP_SELF'] . '" method="post">
-                    <input type="hidden" name="idpro" value="' . $idpro . '">
-                    <div class="form-group">
-                        <label for="message">Đánh giá của bạn</label>
-                        <textarea id="message" name="noidung" cols="30" rows="5" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group mb-0">
-                        <input type="submit" name="guibinhluan" value="Gửi bình luận" class="btn btn-primary">
-                    </div>
-                </form>';
-            } else {
-                echo '<p>Bạn cần đăng nhập để bình luận.</p>';
+        <div class="row">
+            <div class="col-md-6">
+                <?php
+               if (!empty($error)) {
+                echo '<p style="color: red;">' . $error . '</p>';
             }
-            ?>
-        </div>
-       
-    
+            
+                if (isset($_SESSION['user'])) {
+                    // Kiểm tra xem biến $parentid đã được khai báo chưa
+                    $parentid = isset($parentid) ? $parentid : '';
+
+                    echo '
+        <h4 class="mb-4"></h4>
+        <form action="' . $_SERVER['PHP_SELF'] . '" method="post" >
+            <input type="hidden" name="idpro" value="' . $idpro . '">
+            
+            <!-- Thêm trường ẩn để lưu trữ parentid -->
+            <input type="hidden" name="parentid" value="' . $parentid . '">
+
+            <div class="form-group">
+                <label for="message">Đánh giá của bạn</label>
+                <textarea id="message" name="noidung" cols="30" rows="5" class="form-control"></textarea>
+            </div>
+            <div class="form-group mb-0">
+                <input type="submit" name="guibinhluan" value="Gửi bình luận" class="btn btn-primary">
+            </div>
+        </form>';
+                } else {
+                    echo '<p>Bạn cần đăng nhập để bình luận.</p>';
+                }
+                ?>
+
+            </div>
+
+
             <div class="col-md-6">
                 <h4 class="mb-4">Bình luận</h4>
                 <?php foreach ($dsbl as $bl): ?>
@@ -251,6 +274,12 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
 
                                 <a href="#" onclick="editComment(<?php echo $bl['id']; ?>)" class="btn btn-edit"><i
                                         class="fa fa-edit"></i></a>
+                                <button class="btn btn-edit" onclick="showReplyForm(<?php echo $bl['id']; ?>)">Reply</button>
+                                <div id="replyForm<?php echo $bl['id']; ?>" style="display: none;">
+                                    <textarea id="replyMessage<?php echo $bl['id']; ?>" name="replyMessage" cols="30" rows="3"
+                                        class="form-control"></textarea>
+                                    <input type="button" onclick="saveReply(<?php echo $bl['id']; ?>)" value="Gửi">
+                                </div>
                             <?php } ?>
                             <div class="form-group mb-0">
                                 <form id="editForm<?php echo $bl['id']; ?>" class="edit-comment-form" style="display: none;"
@@ -314,6 +343,22 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
             hideAllEditForms();
         }
         
+        function validateForm() {
+        // Get the comment content
+        var commentContent = document.getElementById('message').value;
+
+        // Check if the comment content is empty
+        if (commentContent.trim() === '') {
+            // Display a warning message
+            alert('Bình luận không được để trống!');
+            
+            // Prevent the form from being submitted
+            return false;
+        }
+
+        // Allow the form to be submitted if the comment content is not empty
+        return true;
+    }
     </script>
 
 </body>

@@ -1,9 +1,16 @@
 <?php
-function insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan)
+function insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan, $parentid = null)
 {
-    $sql = "insert into  binhluan(noidung,iduser,idpro,ngaybinhluan) values('$noidung','$iduser','$idpro','$ngaybinhluan')";
-    pdo_execute($sql);
+    // Validate $parentid to ensure it's a valid integer or null
+    $parentid = ($parentid !== '' && is_numeric($parentid)) ? (int)$parentid : null;
+
+    // Prepare the SQL query
+    $sql = "INSERT INTO binhluan (noidung, iduser, idpro, ngaybinhluan, parentid) VALUES (?, ?, ?, ?, ?)";
+
+    // Execute the query with parameters
+    pdo_execute($sql, array($noidung, $iduser, $idpro, $ngaybinhluan, $parentid));
 }
+
 //gốc
 function loadall_binhluan($idpro)
 {
