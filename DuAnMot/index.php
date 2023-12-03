@@ -6,6 +6,7 @@ include "model/danhmuc.php";
 include "model/sanpham.php";
 include "model/taikhoan.php";
 include "model/cart.php";
+include "model/post.php";
 include "global.php";
 include "site/header.php";
 include "site/navmenu.php";
@@ -240,9 +241,10 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             }
             header('Location: index.php');
             break;
-        case 'post':
-            include "site/post.php";
-            break;
+            case 'post':
+                $listbaiviet = loadall_baiviet();
+                include "site/post.php";
+                break;
         case 'like':
             include "site/like.php";
             break;
