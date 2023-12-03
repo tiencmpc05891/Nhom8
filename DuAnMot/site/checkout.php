@@ -45,11 +45,10 @@
             <div class="mb-5">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Phương thức thanh toán</span></h5>
                 <div class="bg-light p-30">
-
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="pttt" value="1" id="directcheck">
-                            <label class="custom-control-label" for="directcheck">Thanh toán sau khi nhận hàng</label>
+                            <label class="custom-control-label" for="directcheck">Thanh toán khi nhận hàng</label>
                         </div>
                     </div>
                     <div class="form-group mb-4">
@@ -64,11 +63,11 @@
                             <label class="custom-control-label" for="paypal">Momo</label>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-block btn-primary font-weight-bold py-3" name="dongydathang" value="Đặt hàng">
-                    </form>
                 </div>
+                <input type="submit" class="btn btn-block btn-primary font-weight-bold py-3" name="dongydathang" value="Đặt hàng">
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Checkout End -->
