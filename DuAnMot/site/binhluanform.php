@@ -209,10 +209,10 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
         <div class="row">
             <div class="col-md-6">
                 <?php
-               if (!empty($error)) {
-                echo '<p style="color: red;">' . $error . '</p>';
-            }
-            
+                if (!empty($error)) {
+                    echo '<p style="color: red;">' . $error . '</p>';
+                }
+
                 if (isset($_SESSION['user'])) {
                     // Kiểm tra xem biến $parentid đã được khai báo chưa
                     $parentid = isset($parentid) ? $parentid : '';
@@ -342,23 +342,23 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
             // Ẩn form sửa khi hủy
             hideAllEditForms();
         }
-        
+
         function validateForm() {
-        // Get the comment content
-        var commentContent = document.getElementById('message').value;
+            // Get the comment content
+            var commentContent = document.getElementById('message').value;
 
-        // Check if the comment content is empty
-        if (commentContent.trim() === '') {
-            // Display a warning message
-            alert('Bình luận không được để trống!');
-            
-            // Prevent the form from being submitted
-            return false;
+            // Check if the comment content is empty
+            if (commentContent.trim() === '') {
+                // Display a warning message
+                alert('Bình luận không được để trống!');
+
+                // Prevent the form from being submitted
+                return false;
+            }
+
+            // Allow the form to be submitted if the comment content is not empty
+            return true;
         }
-
-        // Allow the form to be submitted if the comment content is not empty
-        return true;
-    }
     </script>
 
 </body>
