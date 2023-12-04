@@ -31,7 +31,7 @@ if (isset($titlepage) && $titlepage != "") {
 }
 
 $iddm = isset($_GET['iddm']) ? $_GET['iddm'] : 0;
-$dssp = loadall_sanpham("", $iddm);
+$dssp = loadall_sanpham($kyw, $iddm);
 
 
 ?>
@@ -145,6 +145,8 @@ $dssp = loadall_sanpham("", $iddm);
                         </div>
                     </div>
                 </div>
+               
+
                 <?php
                 foreach ($dssp as $sp) {
                     extract($sp);

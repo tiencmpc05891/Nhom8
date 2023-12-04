@@ -107,11 +107,11 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-            <form action="index.php?act=sanpham" method="post">
+            <form action="index.php?act=shop" method="post">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="kyw" placeholder="Tìm sản phẩm">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">
+                                    <button class="btn btn-primary" name="timkiem" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>

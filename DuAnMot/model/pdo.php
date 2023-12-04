@@ -97,21 +97,29 @@ function pdo_query($sql)
     }
 }
 
-function pdo_query_one($sql)
+function pdo_query_one($sql, $params = array())
 {
-    $sql_args = array_slice(func_get_args(), 1);
     try {
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
-        $stmt->execute($sql_args);
+
+        // Gán giá trị cho các tham số
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+
+        $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $row;
     } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
         throw $e;
     } finally {
         unset($conn);
     }
 }
+
 
 function pdo_query_value($sql)
 {
