@@ -4,24 +4,25 @@ function loadall_taikhoan()
     $sql = "select * from taikhoan order by id desc";
     $listtaikhoan = pdo_query($sql);
     return $listtaikhoan;
-}
-function insert_taikhoan($email, $user, $pass)
+}function insert_taikhoan($email, $user, $pass)
 {
-    $sql = "insert into  taikhoan(email,user,pass) values('$email','$user','$pass')";
-    pdo_execute($sql);
+    $sql = "INSERT INTO taikhoan (email, user, pass) VALUES (?, ?, ?)";
+    pdo_execute($sql, array($email, $user, $pass));
 }
+
 
 function email_exists($email)
 {
     $sql = "SELECT COUNT(*) FROM taikhoan WHERE email = ?";
-    return pdo_query_value($sql, $email) > 0;
+    return pdo_query_value($sql, array($email)) > 0;
 }
 
 function username_exists($username)
 {
     $sql = "SELECT COUNT(*) FROM taikhoan WHERE user = ?";
-    return pdo_query_value($sql, $username) > 0;
+    return pdo_query_value($sql, array($username)) > 0;
 }
+
 function checkuser($user, $pass)
 {
     $sql = "select * from taikhoan where user='" . $user . "' AND pass='" . $pass . "'";
@@ -70,4 +71,3 @@ function loadone_taikhoan($id)
 
     return $tk;
 }
-?>
