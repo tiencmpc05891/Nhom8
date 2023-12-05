@@ -53,20 +53,20 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
-                case 'xoadm':
-                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                        if (delete_danhmuc($_GET['id'])) {
-                           
-                        } else {
-                            error_log("Xóa danh mục thất bại!"); // Log the error
-                            http_response_code(500); // Set HTTP status code for internal server error
-                            echo "Xóa danh mục thất bại!";
-                        }
-                    }    
-                    $listdanhmuc = loadall_danhmuc();
-                    include "danhmuc/list.php";
-                    break;
-                
+            case 'xoadm':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    if (delete_danhmuc($_GET['id'])) {
+
+                    } else {
+                        error_log("Xóa danh mục thất bại!"); // Log the error
+                        http_response_code(500); // Set HTTP status code for internal server error
+                        echo "Xóa danh mục thất bại!";
+                    }
+                }
+                $listdanhmuc = loadall_danhmuc();
+                include "danhmuc/list.php";
+                break;
+
 
             case 'suadm':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
@@ -145,29 +145,29 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "sanpham/update.php";
                 break;
-                case 'updatesp':
-                    if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
-                        $id = $_POST['id'];
-                        $iddm = $_POST['iddm'];
-                        $tensp = $_POST['tensp'];
-                        $giasp = $_POST['giasp'];
-                        $mota = $_POST['mota'];
-                        $thongtin = $_POST['thongtin'];
-                        $hinh = $_FILES['hinh']['name'];
-                        $target_dir = "../upload/";
-                        $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-                        if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                            update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh); 
-                            $thongbao = "Thêm sản phẩm thành công";
-                        } else {
-                            $loi = "Lỗi khi thêm";
-                        }         
+            case 'updatesp':
+                if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
+                    $id = $_POST['id'];
+                    $iddm = $_POST['iddm'];
+                    $tensp = $_POST['tensp'];
+                    $giasp = $_POST['giasp'];
+                    $mota = $_POST['mota'];
+                    $thongtin = $_POST['thongtin'];
+                    $hinh = $_FILES['hinh']['name'];
+                    $target_dir = "../upload/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                        update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh);
+                        $thongbao = "Thêm sản phẩm thành công";
+                    } else {
+                        $loi = "Lỗi khi thêm";
                     }
-                    $listdanhmuc = loadall_danhmuc();
-                    $listsanpham = loadall_sanpham();
-                    include "sanpham/list.php";
-                    
-                    break;
+                }
+                $listdanhmuc = loadall_danhmuc();
+                $listsanpham = loadall_sanpham();
+                include "sanpham/list.php";
+
+                break;
 
 
             case 'addbv':
@@ -175,14 +175,19 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $tieude = $_POST['tieude'];
                     $noidung = $_POST['noidung'];
                     $img = $_FILES['hinh']['name'];
+                    $ngayviet = date('d/m/y');
+                    $iduser = $_SESSION['user']['id'];
                     $target_dir = "../upload/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+
 
                     if (empty($tieude) || empty($noidung) || empty($img)) {
                         $loi = "Vui lòng điền đầy đủ!";
                     } else {
+
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                            insert_baiviet($tieude, $noidung, $img);
+
+                            insert_baiviet($tieude, $noidung, $img, $iduser, $ngayviet);
                             $thongbao = "Thêm thành công!";
                         } else {
                             $loi = "Xảy ra lỗi!";
@@ -192,6 +197,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listbaiviet = loadall_baiviet();
                 include "post/add.php";
                 break;
+
 
 
             case 'listbv':
@@ -224,7 +230,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
 
                     if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                        $thongbao = "Thêm thành công!";  
+                        $thongbao = "Thêm thành công!";
                         update_baiviet($id, $tieude, $noidung, $img);
                     } else {
                         $loi = "Vui lòng nhập đầy đủ!";
@@ -253,7 +259,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                             insert_banner($img, $text1, $text2);
                             $thongbao = "Thêm thành công!";
                         } else {
-                            
+
                         }
                     }
                 }
@@ -295,7 +301,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                         if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                             update_banner($id, $img, $text1, $text2);
                             $thongbao = "Cập nhật thành công";
-                        } else  {
+                        } else {
                             $loi = "Cập nhật thất bại";
                         }
                     }
@@ -304,50 +310,50 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 include "banner/list.php";
                 break;
 
-                case 'dskh':
-                    $listtaikhoan = loadall_taikhoan();
-                    include "taikhoan/list.php";
-                    break;
-                case 'updatetk':
-                    if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
-                        $user = $_POST['user'];
-                        $pass = $_POST['pass'];
-                        $email = $_POST['email'];
-                        $address = $_POST['address'];
-                        $tel = $_POST['tel'];
-                        $id = $_POST['id'];
-                        update_taikhoan($id, $user, $pass, $email, $address, $tel);
-                        $thongbao = "Cập nhật thành công";
+            case 'dskh':
+                $listtaikhoan = loadall_taikhoan();
+                include "taikhoan/list.php";
+                break;
+            case 'updatetk':
+                if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
+                    $user = $_POST['user'];
+                    $pass = $_POST['pass'];
+                    $email = $_POST['email'];
+                    $address = $_POST['address'];
+                    $tel = $_POST['tel'];
+                    $id = $_POST['id'];
+                    update_taikhoan($id, $user, $pass, $email, $address, $tel);
+                    $thongbao = "Cập nhật thành công";
+                }
+                $listtaikhoan = loadall_taikhoan();
+                include "taikhoan/list.php";
+                break;
+            case 'suatk':
+                $user = '';
+                $pass = '';
+                $email = '';
+                $address = '';
+                $tel = '';
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $taikhoan = loadone_taikhoan($_GET['id']);
+                    if ($taikhoan) {
+                        $user = $taikhoan['user'];
+                        $pass = $taikhoan['pass'];
+                        $email = $taikhoan['email'];
+                        $address = $taikhoan['address'];
+                        $tel = $taikhoan['tel'];
                     }
-                    $listtaikhoan = loadall_taikhoan();
-                    include "taikhoan/list.php";
-                    break;
-                case 'suatk':
-                    $user = '';
-                    $pass = '';
-                    $email = '';
-                    $address = '';
-                    $tel = '';
-                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                        $taikhoan = loadone_taikhoan($_GET['id']);
-                        if ($taikhoan) {
-                            $user = $taikhoan['user'];
-                            $pass = $taikhoan['pass'];
-                            $email = $taikhoan['email'];
-                            $address = $taikhoan['address'];
-                            $tel = $taikhoan['tel'];
-                        }
-                    }
-                    $listtaikhoan = loadall_taikhoan();
-                    include "taikhoan/update.php";
-                    break;
-                case 'xoatk':
-                    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                        delete_taikhoan($_GET['id']);
-                    }
-                    $listtaikhoan = loadall_taikhoan();
-                    include "taikhoan/list.php";
-                    break;
+                }
+                $listtaikhoan = loadall_taikhoan();
+                include "taikhoan/update.php";
+                break;
+            case 'xoatk':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    delete_taikhoan($_GET['id']);
+                }
+                $listtaikhoan = loadall_taikhoan();
+                include "taikhoan/list.php";
+                break;
             case 'dsbl':
                 $listbinhluan = loadall_binhluan(0);
                 include "binhluan/list.php";

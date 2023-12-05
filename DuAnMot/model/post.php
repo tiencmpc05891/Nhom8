@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "pdo.php";
 
 function loadall_baiviet()
@@ -7,11 +7,14 @@ function loadall_baiviet()
     $listbaiviet = pdo_query($sql);
     return $listbaiviet;
 }
-function insert_baiviet($tieude, $noidung, $img)
+function insert_baiviet($tieude, $noidung, $img, $iduser, $ngayviet)
 {
-    $sql = "insert into  post(tieude,noidung,img) values('$tieude','$noidung','$img')";
-    pdo_execute($sql);
+    $sql = "INSERT INTO post (tieude, noidung, img, iduser, ngayviet) VALUES (?, ?, ?, ?, ?)";
+
+    pdo_execute($sql, array($tieude, $noidung, $img, $iduser, $ngayviet));
 }
+
+
 function delete_baiviet($id)
 {
     $sql = "delete from post where id=" . $id;
@@ -21,7 +24,7 @@ function update_baiviet($id, $tieude, $noidung, $img)
 {
     // Sử dụng Prepared Statements để bảo vệ khỏi SQL Injection
     $sql = "UPDATE post SET tieude = ?, noidung = ?, img = ? WHERE id = ?";
-    
+
     // Chuẩn bị và thực thi truy vấn
     pdo_execute($sql, array($tieude, $noidung, $img, $id));
 }
@@ -31,5 +34,20 @@ function loadone_baiviet($id)
     $sql = "select * from post where id=" . $id;
     $baiviet = pdo_query_one($sql);
     return $baiviet;
+}
+function getuserbyid($id)
+{
+    $sql = "SELECT * FROM taikhoan WHERE id = :id";
+    $params = array(':id' => $id);
+
+    try {
+        // Thêm tham số $params vào hàm pdo_execute
+        $user = pdo_query_one($sql, $params);
+
+        return $user;
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
+        throw $e;
+    }
 }
 ?>

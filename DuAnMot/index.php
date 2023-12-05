@@ -6,12 +6,15 @@ include "model/danhmuc.php";
 include "model/sanpham.php";
 include "model/taikhoan.php";
 include "model/cart.php";
+include "model/post.php";
 include "global.php";
 include "site/header.php";
 include "site/navmenu.php";
 
+
 $dsdm = loadall_danhmuc();
-if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if (!isset($_SESSION['mycart']))
+    $_SESSION['mycart'] = [];
 
 if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
@@ -19,21 +22,8 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
         case 'home':
             include "site/home.php";
             break;
-        case 'shop':
-            if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
-                $kyw = $_POST['kyw'];
-            } else {
-                $kyw = "";
-            }
-            if (isset($_GET['iddm']) && ($_GET['iddm'] > 0)) {
-                $iddm = $_GET['iddm'];
-            } else {
-                $iddm = 0;
-            }
-            $dssp = loadall_sanpham($kyw, $iddm);
-            $tendm = load_ten_dm($iddm);
-            include "site/shop.php";
-            break;
+
+
         case 'detail':
             if (isset($_GET['idsp']) && ($_GET['idsp'] > 0)) {
                 $id = $_GET['idsp'];
@@ -45,19 +35,44 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
                 include "site/home.php";
             }
             break;
-        case 'addtocart':
-            if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
-                $id = $_POST['id'];
-                $name = $_POST['name'];
-                $img = $_POST['img'];
-                $price = $_POST['price'];
-                $soluong = $_POST['soluong'];
-                $thanhtien = $soluong * $price;
-                $spadd = [$id, $name, $img, $price,  $soluong, $thanhtien];
-                array_push($_SESSION['mycart'], $spadd);
+        case 'shop':
+
+            if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
+                $kyw = $_POST['kyw'];
+            } else {
+                $kyw = "";
             }
-            include 'site/cart.php';
+            if (isset($_POST['iddm']) && ($_POST['iddm'] > 0)) {
+                $iddm = $_POST['iddm'];
+            } else {
+                $iddm = 0;
+                $loi = "Không có sản phẩm nào khớp!";
+            }
+            $dssp = loadall_sanpham($kyw, $iddm);
+            $tendm = load_ten_dm($iddm);
+            include "site/shop.php";
             break;
+            case 'addtocart':
+                if (!isset($_SESSION['user'])) {
+                    header("Location: index.php?act=dangnhap");
+                    exit();
+                }
+                
+            
+                if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
+                    $id = $_POST['id'];
+                    $name = $_POST['name'];
+                    $img = $_POST['img'];
+                    $price = $_POST['price'];
+                    $soluong = $_POST['soluong'];
+                    $thanhtien = $soluong * $price;
+                    $spadd = [$id, $name, $img, $price, $soluong, $thanhtien];
+                    array_push($_SESSION['mycart'], $spadd);
+                }
+            
+                include 'site/cart.php';
+                break;
+            
         case 'delcart':
             if (isset($_GET['idcart'])) {
                 $idcart = $_GET['idcart'];
@@ -110,6 +125,7 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             include "site/checkout.php";
             break;
         case 'login':
+            
             if (isset($_POST["dangnhap"]) && ($_POST["dangnhap"])) {
                 $user = $_POST["user"];
                 $pass = $_POST["pass"];
@@ -225,9 +241,10 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             }
             header('Location: index.php');
             break;
-        case 'post':
-            include "site/post.php";
-            break;
+            case 'post':
+                $listbaiviet = loadall_baiviet();
+                include "site/post.php";
+                break;
         case 'like':
             include "site/like.php";
             break;
