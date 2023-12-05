@@ -70,3 +70,4 @@ function loadone_taikhoan($id)
 
     return $tk;
 }
+?>

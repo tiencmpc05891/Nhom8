@@ -10,48 +10,6 @@ function pdo_get_connection()
     return $conn;
 }
 
-
-// function pdo_execute($sql)
-// {
-//     $sql_args = array_slice(func_get_args(), 1);
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($sql_args);
-//     } catch (PDOException $e) {
-//         throw $e;
-//     } finally {
-//         unset($conn);
-//     }
-// }
-//bản gốc ở trên
-// function pdo_execute($sql)
-// {
-//     $sql_args = array_slice(func_get_args(), 1);
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($sql_args);
-//         echo "Cập nhật thành công";
-//     } catch (PDOException $e) {
-//         echo "Lỗi SQL: " . $e->getMessage();
-//     } finally {
-//         unset($conn);
-//     }
-// }
-// function pdo_execute($sql, $params = array())
-// {
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($params);
-//         echo "Cập nhật thành công";
-//     } catch (PDOException $e) {
-//         echo "Lỗi SQL: " . $e->getMessage();
-//     } finally {
-//         unset($conn);
-//     }
-// }
 function pdo_execute($sql, $params = array())
 {
     try {
