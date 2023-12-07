@@ -69,7 +69,7 @@ function showcart($del, $isCheckout = false)
             $tong += $thanhtien;
 
             if ($del == 1) {
-                $xoasp_td = '<td><a href="index.php?act=delcart&idcart=' . $i . '"><input type="button" value="Xóa"></a></td>';
+                $xoasp_td = '<td><a href="index.php?act=delcart&idcart=' . $i . '"><input type="button"  class="btn btn-danger" value="Xóa"></a></td>';
             } else {
                 $xoasp_td = '';
             }
@@ -189,18 +189,17 @@ function bill_chi_tiet($listbill)
             <tr>
             <td><img src="' . $img . '" alt="" height="80px"></td>
             <td>' . $cart['name'] . '</td>
-            <td>' . $cart['price'] . '<sup>đ</sup></td>
+            <td>' . number_format($cart['price'], 0, '.', '.') . '<sup>đ</sup></td>
             <td>' . $cart['soluong'] . '</td>
-            <td>' . $cart['thanhtien'] . '</td>
+            <td>' . number_format($cart['thanhtien'], 0, '.', '.') . '<sup>đ</sup></td>
             </tr>';
         $i += 1;
     }
     echo ' <tr>
                 <td colspan="4">Tổng đơn hàng</td>
-                <td>' . $tong . '<sup>đ</sup></td>
+                <td>'. number_format($tong, 0, '.', '.') .' <sup>đ</sup></td>
         </tr>';
 }
-
 
 function tongdonhang()
 {

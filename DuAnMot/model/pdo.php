@@ -10,48 +10,6 @@ function pdo_get_connection()
     return $conn;
 }
 
-
-// function pdo_execute($sql)
-// {
-//     $sql_args = array_slice(func_get_args(), 1);
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($sql_args);
-//     } catch (PDOException $e) {
-//         throw $e;
-//     } finally {
-//         unset($conn);
-//     }
-// }
-//bản gốc ở trên
-// function pdo_execute($sql)
-// {
-//     $sql_args = array_slice(func_get_args(), 1);
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($sql_args);
-//         echo "Cập nhật thành công";
-//     } catch (PDOException $e) {
-//         echo "Lỗi SQL: " . $e->getMessage();
-//     } finally {
-//         unset($conn);
-//     }
-// }
-// function pdo_execute($sql, $params = array())
-// {
-//     try {
-//         $conn = pdo_get_connection();
-//         $stmt = $conn->prepare($sql);
-//         $stmt->execute($params);
-//         echo "Cập nhật thành công";
-//     } catch (PDOException $e) {
-//         echo "Lỗi SQL: " . $e->getMessage();
-//     } finally {
-//         unset($conn);
-//     }
-// }
 function pdo_execute($sql, $params = array())
 {
     try {
@@ -102,10 +60,10 @@ function pdo_query_one($sql, $params = array())
     try {
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
-
-        // Gán giá trị cho các tham số
-        foreach ($params as $key => $value) {
-            $stmt->bindValue($key, $value);
+        
+        // Bind tham số sử dụng prepared statements
+        for ($i = 0; $i < count($params); $i++) {
+            $stmt->bindParam($i + 1, $params[$i]);
         }
 
         $stmt->execute();
@@ -120,16 +78,26 @@ function pdo_query_one($sql, $params = array())
     }
 }
 
-
-function pdo_query_value($sql)
+function pdo_query_value($sql, $params = array())
 {
-    $sql_args = array_slice(func_get_args(), 1);
     try {
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
-        $stmt->execute($sql_args);
+        
+        // Bind tham số sử dụng prepared statements
+        for ($i = 0; $i < count($params); $i++) {
+            $stmt->bindParam($i + 1, $params[$i]);
+        }
+
+        $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return array_values($row)[0];
+        
+        if ($row) {
+            // Lấy giá trị của cột đầu tiên
+            return reset($row);
+        }
+
+        return null;
     } catch (PDOException $e) {
         throw $e;
     } finally {
