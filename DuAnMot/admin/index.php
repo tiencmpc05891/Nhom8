@@ -88,7 +88,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
-
+    
             case 'addsp':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $iddm = $_POST['iddm'];
