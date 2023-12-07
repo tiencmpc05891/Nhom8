@@ -177,23 +177,18 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
                 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $error_message = 'Địa chỉ email không hợp lệ.';
                 } else {
-                    // Kiểm tra xem tài khoản hoặc email đã tồn tại chưa
                     $existingUser = pdo_query_one("SELECT * FROM taikhoan WHERE user = ? OR email = ?", array($user, $email));
                     if ($existingUser) {
-                        // Nếu tài khoản hoặc email đã tồn tại, hiển thị thông báo lỗi và giữ nguyên giá trị đã nhập
                         $_SESSION['tb_dangky'] = 'Tài khoản hoặc email đã tồn tại. Vui lòng chọn tài khoản hoặc email khác.';
                         $_SESSION['input_values'] = $input_values;
                         header('location: index.php?act=dangky');
-                        exit; // Dừng xử lý tiếp theo
+                        exit;
                     }
-
-                    // Nếu không có tài khoản hoặc email trùng, thực hiện đăng ký
                     insert_taikhoan($email, $user, $pass);
                     $thongbao = 'Đã đăng ký thành công. Mời bạn đăng nhập!';
                     header('location: index.php?act=dangnhap');
                 }
 
-                // Kiểm tra nếu có lỗi, lưu thông báo lỗi và giá trị đã nhập vào session
                 if (isset($error_message) && $error_message != "") {
                     $_SESSION['tb_dangky'] = $error_message;
                     $_SESSION['input_values'] = $input_values;
