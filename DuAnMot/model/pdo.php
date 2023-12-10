@@ -60,10 +60,11 @@ function pdo_query_one($sql, $params = array())
     try {
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
-        
+
         // Bind tham số sử dụng prepared statements
-        for ($i = 0; $i < count($params); $i++) {
-            $stmt->bindParam($i + 1, $params[$i]);
+        foreach ($params as $key => $value) {
+  
+            $stmt->bindValue($key, $value);
         }
 
         $stmt->execute();
@@ -77,6 +78,7 @@ function pdo_query_one($sql, $params = array())
         unset($conn);
     }
 }
+
 
 function pdo_query_value($sql, $params = array())
 {

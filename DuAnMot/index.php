@@ -156,34 +156,22 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
                 $user = $_POST['user'];
                 $pass = $_POST['pass'];
 
-                // Khởi tạo mảng lưu giá trị đã nhập
-                $input_values = array('email' => $email, 'user' => $user);
-
                 // Kiểm tra không để trống
                 if (empty($user) || empty($pass) || empty($email)) {
                     $error_message = 'Vui lòng nhập tên đăng nhập, mật khẩu hoặc email, nếu bạn để trống! ';
-                } elseif (username_exists($user)) {
-                    $error_message = 'Tên đăng nhập đã được sử dụng. Vui lòng chọn tên khác.';
-                } elseif (empty($pass)) {
-                    $error_message = 'Vui lòng nhập mật khẩu.';
-                } elseif ($pass !== $_POST['repassword']) {
-                    $error_message = 'Mật khẩu xác nhận không khớp.';
-                } elseif (email_exists($email)) {
-                    $error_message = 'Email đã được sử dụng. Vui lòng sử dụng địa chỉ email khác.';
                 } elseif (preg_match('/[^\p{L}\d\s]/u', $user)) {
                     $error_message = 'Tên đăng nhập không được chứa ký tự đặc biệt.';
                 } elseif (strlen($pass) < 4) {
                     $error_message = 'Mật khẩu phải có ít nhất 4 ký tự.';
                 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $error_message = 'Địa chỉ email không hợp lệ.';
+                } elseif (email_exists($email) || username_exists($user)) {
+                    $_SESSION['tb_dangky'] = 'Tài khoản hoặc email đã tồn tại. Vui lòng chọn tài khoản hoặc email khác.';
+                    $_SESSION['input_values'] = array('email' => $email, 'user' => $user);
+                    header('location: index.php?act=dangky');
+                    exit;
                 } else {
-                    $existingUser = pdo_query_one("SELECT * FROM taikhoan WHERE user = ? OR email = ?", array($user, $email));
-                    if ($existingUser) {
-                        $_SESSION['tb_dangky'] = 'Tài khoản hoặc email đã tồn tại. Vui lòng chọn tài khoản hoặc email khác.';
-                        $_SESSION['input_values'] = $input_values;
-                        header('location: index.php?act=dangky');
-                        exit;
-                    }
+                    // Thực hiện đăng ký nếu không có lỗi
                     insert_taikhoan($email, $user, $pass);
                     $thongbao = 'Đã đăng ký thành công. Mời bạn đăng nhập!';
                     header('location: index.php?act=dangnhap');
@@ -191,7 +179,7 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
 
                 if (isset($error_message) && $error_message != "") {
                     $_SESSION['tb_dangky'] = $error_message;
-                    $_SESSION['input_values'] = $input_values;
+                    $_SESSION['input_values'] = array('email' => $email, 'user' => $user);
                     header('location: index.php?act=dangky');
                 }
             }
