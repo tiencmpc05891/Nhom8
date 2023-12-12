@@ -61,11 +61,10 @@ function pdo_query_one($sql, $params = array())
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
         
-        // Bind tham số sử dụng prepared statements
-        for ($i = 0; $i < count($params); $i++) {
-            $stmt->bindParam($i + 1, $params[$i]);
+         // Gán giá trị cho các tham số
+         foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
         }
-
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
