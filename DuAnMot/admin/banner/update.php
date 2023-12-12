@@ -71,12 +71,7 @@ if (is_file($hinhpath)) {
                                         value="Cập nhật"></input></a>
 
                                 </div>
-                                <?php
-                                if (isset($thongbao) && ($thongbao != ""))
-                                    echo $thongbao;
-
-
-                                ?>
+                                
                             </form>
                         </div>
                         <!-- /.card-body -->

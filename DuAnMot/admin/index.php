@@ -158,7 +158,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                     if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                         update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh);
-                        $thongbao = "Thêm sản phẩm thành công";
+                        $thongbao = "Sửa sản phẩm thành công";
                     } else {
                         $loi = "Lỗi khi thêm";
                     }

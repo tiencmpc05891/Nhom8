@@ -54,6 +54,7 @@
                                 <label for="remember-me" class="label-agree-term"><span><span></span></span>Ghi nhớ tài khoản
                                 </label>
                             </div>
+                            <a href="site/forgot_pass.php">Quên mật khẩu?</a>
                             <div class="form-group form-button">
                                 <input type="submit" name="dangnhap" class="form-submit" value="Đăng nhập" />
                             </div>
@@ -67,6 +68,7 @@
                                 ?>
                             </h4>
                         </form>
+                        
                         <div class="social-login">
                             <span class="social-label">Hoặc đăng nhập với</span>
                             <ul class="socials">
