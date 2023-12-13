@@ -46,7 +46,8 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
     <link href="content/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="content/css/style.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="content/lg/verdor/jquery-ui.min.js">
+    <link rel="stylesheet" href="content/lg/verdor/jquery.min.js">
 </head>
 
 <body>
