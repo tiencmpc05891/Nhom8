@@ -44,7 +44,9 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
                 $iddm = 0;
                 $loi = "Không có sản phẩm nào khớp!";
             }
-            $dssp = loadall_sanpham($kyw, $iddm);
+
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $dssp = loadall_sanpham_shop($kyw, $iddm, $page);
             $tendm = load_ten_dm($iddm);
             include "site/shop.php";
             break;
