@@ -260,20 +260,20 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             }
             include "site/verification.php";
             break;
-            case 'resetpass':
-                if (isset($_POST['submit'])) {
-                    $error = array();
-                
-                    if ($_POST['repass'] != $_POST['newpass']) {
-                        $error['fail'] = 'Nhập mật khẩu không khớp!';
-                    } else {
-                        $error['success'] = 'Đổi mật khẩu thành công';
-                        forget_pass($_POST['newpass'], $_SESSION['mail']);
-                        header('index.php?act=dangnhap');
-                    }
+        case 'resetpass':
+            if (isset($_POST['submit'])) {
+                $error = array();
+
+                if ($_POST['repass'] != $_POST['newpass']) {
+                    $error['fail'] = 'Nhập mật khẩu không khớp!';
+                } else {
+                    $error['success'] = 'Đổi mật khẩu thành công';
+                    forget_pass($_POST['newpass'], $_SESSION['mail']);
+                    header('index.php?act=dangnhap');
                 }
-                include "site/resetpass.php";
-                break;
+            }
+            include "site/resetpass.php";
+            break;
         case 'dangxuat':
             if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) {
                 unset($_SESSION['user']);
@@ -288,6 +288,7 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             include "site/like.php";
             break;
         case 'contact':
+            
             include "site/contact.php";
             break;
         default:
