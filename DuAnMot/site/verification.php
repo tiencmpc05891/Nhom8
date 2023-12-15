@@ -40,6 +40,21 @@
 
                     <div class="signin-form">
                         <h1 class="form-title">Nhập mã xác nhận</h1>
+                        <tr>
+                            <?php if (isset($error['fail'])): ?>
+                                <div class="alert alert-primary" role="alert">
+                                    <?= $error['fail'] ?>
+                                </div>
+                            <?php elseif (isset($error['success'])): ?>
+                                <div class="alert alert-primary" role="alert">
+                                    <?= $error['success'] ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="alert alert-primary" role="alert">
+                                Nhập mã xác nhận
+                                </div>
+                            <?php endif; ?>
+                        </tr>
                         <form action="" class="register-form" method="post">
                             <div class="form-group">
                             <input type="text" class="control-login" name="text" placeholder="nhập mã xác nhận">
