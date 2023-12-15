@@ -40,7 +40,13 @@ function delete_taikhoan($id)
     $sql = "delete from taikhoan where id=" . $id;
     pdo_execute($sql);
 }
+function forget_pass($pass, $email){
+    $sql = "UPDATE taikhoan SET pass = '$pass' WHERE email = '$email'";
 
+
+    // Chuẩn bị và thực thi truy vấn
+    pdo_execute($sql, array($pass, $email));
+}
 function update_taikhoan($id, $user, $pass, $email, $address, $tel)
 {
     $sql = "UPDATE taikhoan SET user=:user, pass=:pass, email=:email, address=:address, tel=:tel WHERE id=:id";

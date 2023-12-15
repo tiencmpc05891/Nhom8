@@ -29,6 +29,7 @@
 
 <body>
 
+
     <div class="main">
         <section class="sign-in">
             <div class="container">
@@ -51,10 +52,11 @@
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Ghi nhớ tài khoản
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Ghi nhớ tài
+                                    khoản
                                 </label>
                             </div>
-                            <a href="site/forgot_pass.php">Quên mật khẩu?</a>
+                            <a href="index.php?act=forgetpass">Quên mật khẩu?</a>
                             <div class="form-group form-button">
                                 <input type="submit" name="dangnhap" class="form-submit" value="Đăng nhập" />
                             </div>
@@ -68,12 +70,11 @@
                                 ?>
                             </h4>
                         </form>
-                        
+
                         <div class="social-login">
                             <span class="social-label">Hoặc đăng nhập với</span>
                             <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+
                                 <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
                             </ul>
                         </div>
