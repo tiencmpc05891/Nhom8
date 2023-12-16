@@ -19,15 +19,10 @@
                 extract($baiviet);
 
                 // Lấy thông tin người dùng từ ID
-                $user_info = getuserbyid($iduser);
+                
 
 
-                if ($user_info) {
-                  $tennguoidung = $user_info['user'];
-                } else {
-                  $tennguoidung = 'Người dùng không tồn tại';
-                }
-
+               
                 $img = $img_path . $img;
                 ?>
                 <div class="col-lg-4 col-md-12 mb-4">
@@ -49,7 +44,8 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-0">
                           <i class="fas fa-user"></i>
-                          <?= $tennguoidung ?>
+                          Test2
+                          
                         </p>
                         <p class="mb-0">
                           <i class="far fa-calendar"></i>
