@@ -7,6 +7,7 @@ include "model/sanpham.php";
 include "model/taikhoan.php";
 include "model/cart.php";
 include "model/post.php";
+include "model/thanhtoanonline.php";
 include "global.php";
 include "site/header.php";
 include "site/navmenu.php";
@@ -113,8 +114,21 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             $billct = loadall_cart($idbill);
             include "site/billcomform.php";
             break;
+        case 'online':
+            include "site/online.php";
+            break;
+        case 'thank':
+            include "site/thank.php";
+            break;
         case 'cart':
             include "site/cart.php";
+            break;
+        case 'mybill':
+            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                delete_donhang($_GET['id']);
+            }
+            $listbill = loadall_bill($_SESSION['user']['id']);
+            include "site/mybill.php";
             break;
         case 'checkout':
             include "site/checkout.php";
@@ -286,11 +300,7 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             $listbaiviet = loadall_baiviet();
             include "site/post.php";
             break;
-        case 'like':
-            include "site/like.php";
-            break;
         case 'contact':
-            
             include "site/contact.php";
             break;
         default:

@@ -244,21 +244,3 @@ $dssp = loadall_sanpham($kyw, $iddm);
 </div>
 </div>
 <!-- Shop End -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const priceFilterForm = document.getElementById("price-filter-form");
-        const minPriceInput = document.getElementById("min-price");
-        const maxPriceInput = document.getElementById("max-price");
-
-        priceFilterForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            // Lấy giá trị từ ô nhập giá
-            const minPrice = minPriceInput.value;
-            const maxPrice = maxPriceInput.value;
-
-            // Gửi yêu cầu lọc đến trang hiện tại với các tham số giá
-            window.location.href = `index.php?act=shop&iddm=${iddm}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-        });
-    });
-</script>

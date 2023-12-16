@@ -18,23 +18,25 @@ function showcart($del, $isCheckout = false)
 
     if ($isCheckout) {
         echo '<div class="col-lg-12">
-                <table class="table table-light table-borderless text-center mb-0">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Sản Phẩm</th>
-                            <th>Đơn giá</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle">';
+                        <table class="table table-light table-borderless text-center mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Sản Phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">';
 
         foreach ($_SESSION['mycart'] as $cart) {
             $price = floatval($cart[3]);
             $thanhtien = $price * $cart[4];
             $tong += $thanhtien;
-
+            //tên của sản phẩm  $cart[1] 
             echo '<tr>';
             echo '    <td class="align-middle">' . $cart[1] . '</td>';
             echo '    <td class="align-middle">' . $cart[3] . '<sup>đ</sup></td>';
+            echo '    <td class="align-middle">' . $cart[4] . '</td>';
             echo '</tr>';
         }
 
@@ -42,11 +44,11 @@ function showcart($del, $isCheckout = false)
 
         echo '    </table>';
         echo '    </div>
-        <div class="pt-2">
-            <div class="d-flex justify-content-between mt-2">
-                <h5>Tổng cộng: ' . number_format($tong, 0, '.', '.') . '<sup>đ</sup></h5>
-                <h5></h5>
-            </div>';
+                <div class="pt-2">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5>Tổng cộng: ' . number_format($tong, 0, '.', '.') . '<sup>đ</sup></h5>
+                        <h5></h5>
+                    </div>';
     } else {
         echo '<div class="col-lg-8 table-responsive mb-5">
                 <table class="table table-light table-borderless table-hover text-center mb-0">
@@ -105,7 +107,6 @@ function showcart($del, $isCheckout = false)
 
         <a href="index.php?act=shop"><input class="btn btn-success" type="button" value="Tiếp tục đặt hàng"></a>     <a href="index.php?act=delcart"><input class="btn btn-danger" type="button" value="Xóa tất cả giỏ hàng"></a>
        </div>';
-
     }
 
     echo '<div class="col-lg-4">';
@@ -113,10 +114,8 @@ function showcart($del, $isCheckout = false)
     if (!$isCheckout) {
         echo '<form class="mb-3" action="">
                 <div class="input-group">
-                    <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary">Áp dụng mã giảm giá</button>
-                    </div>
+                  
+                
                 </div>
             </form>';
     }
@@ -150,7 +149,9 @@ function showcart($del, $isCheckout = false)
                 <h5>' . number_format($tong, 0, '.', '.') . '<sup>đ</sup></h5>
             </div>';
     }
-    if (!$isCheckout) {
+  
+//: Đây là một điều kiện kiểm tra nếu biến $isCheckout không đúng, tức là đang ở chế độ xem giỏ hàng (không phải chế độ thanh toán).
+    if (!$isCheckout) { // kiểm tra nếu không phải ở chế độ thanh toán 
         echo '    <a href="index.php?act=checkout">
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Tiếp tục thanh toán</button>
 
@@ -197,7 +198,7 @@ function bill_chi_tiet($listbill)
     }
     echo ' <tr>
                 <td colspan="4">Tổng đơn hàng</td>
-                <td>'. number_format($tong, 0, '.', '.') .' <sup>đ</sup></td>
+                <td>' . number_format($tong, 0, '.', '.') . ' <sup>đ</sup></td>
         </tr>';
 }
 
@@ -215,12 +216,12 @@ function insert_cart($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien,
     $sql = "insert into  cart(iduser,idpro,img,name,price,soluong,thanhtien,idbill) values('$iduser','$idpro','$img','$name','$price','$soluong','$thanhtien','$idbill')";
     return pdo_execute($sql);
 }
+
 function insert_bill($iduser, $name, $email, $address, $tel, $pttt, $ngaydathang, $tongdonhang)
 {
     $sql = "insert into  bill(iduser,bill_name,bill_email,bill_address,bill_tel,bill_pttt,ngaydathang,total) values('$iduser','$name','$email','$address','$tel','$pttt','$ngaydathang','$tongdonhang')";
     return pdo_execute_return_lastInsertId($sql);
 }
-
 
 
 function loadone_bill($id)
@@ -229,6 +230,7 @@ function loadone_bill($id)
     $bill = pdo_query_one($sql);
     return $bill;
 }
+
 function loadall_cart($idbill)
 {
     $sql = "select * from cart where idbill=" . $idbill;
@@ -251,9 +253,31 @@ function loadall_bill($iduser = 0)
     $listbill = pdo_query($sql);
     return $listbill;
 }
-function delete_donhang($id)
-{
+// function delete_donhang($id)
+// {
+//     $sql = "delete from bill where id=" . $id;
+//     pdo_execute($sql);
+// }
+//gốc ở trên
+// Trước khi xóa đơn hàng, xóa tất cả chi tiết đơn hàng từ bảng cart
+function delete_donhang($id) {
+    // Trước hết, load chi tiết đơn hàng từ bảng cart
+    $list_cart = loadall_cart($id);
+
+    // Sau đó, xóa từng chi tiết đơn hàng
+    foreach ($list_cart as $cart_item) {
+        $cart_id = $cart_item['id']; // Hoặc có thể là $cart_item['idcart'] tùy thuộc vào cấu trúc bảng của bạn
+        delete_cart_item($cart_id);
+    }
+
+    // Cuối cùng, xóa đơn hàng
     $sql = "delete from bill where id=" . $id;
+    pdo_execute($sql);
+}
+
+// Hàm xóa một chi tiết đơn hàng từ bảng cart
+function delete_cart_item($cart_id) {
+    $sql = "delete from cart where id=" . $cart_id;
     pdo_execute($sql);
 }
 function get_ttdh($n)

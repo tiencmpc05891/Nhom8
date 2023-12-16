@@ -1,0 +1,4 @@
+<?php
+
+online_checkout();
+?>
