@@ -26,6 +26,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+
                                         <th scope="col">Mã đơn hàng</th>
                                         <th scope="col">Khách hàng</th>
                                         <th scope="col">Số lượng hàng</th>
@@ -54,9 +55,10 @@
                                         <td>
                                             <form action="index.php?act=duyet_donhang" method="post">
                                                 <input type="hidden" name="id" value="<?php echo $bill['id']; ?>">
-                                                <button type="button" class="btn btn-success" onclick="confirmApproveOrder(<?php echo $bill['id']; ?>)">Duyệt đơn hàng</button>
+                                                <button type="submit" class="btn btn-success">Duyệt đơn hàng</button>
                                             </form>
                                         </td>
+                                        
                                         <td>
                                             <button class="btn btn-danger" type="button" onclick="confirmDeleteOrder(<?php echo $bill['id']; ?>)">Xóa</button>
                                         </td>
@@ -88,21 +90,6 @@
         // Nếu người adminchọn "OK" (đồng ý), chuyển hướng đến trang xử lý xóa đơn hàng
         if (result) {
             window.location.href = "index.php?act=xoadh&id=" + orderId;
-        }
-        // Nếu người adminchọn "Cancel" (không đồng ý), không làm gì cả
-    }
-
-    function confirmApproveOrder(orderId) {
-        // Hiển thị hộp thoại xác nhận
-        var result = confirm("Bạn có chắc chắn muốn duyệt đơn hàng không?");
-
-        // Nếu người adminchọn "OK" (đồng ý), thực hiện đồng thời hiển thị thông báo thành công
-        if (result) {
-            // Thực hiện duyệt đơn hàng - có thể là một ajax request đến server
-            // Sau khi duyệt thành công, hiển thị thông báo
-            alert("Duyệt đơn hàng thành công!");
-
-            // window.location.href = "index.php?act=success_page";
         }
         // Nếu người adminchọn "Cancel" (không đồng ý), không làm gì cả
     }
