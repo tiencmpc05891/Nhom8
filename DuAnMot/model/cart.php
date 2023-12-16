@@ -149,8 +149,8 @@ function showcart($del, $isCheckout = false)
                 <h5>' . number_format($tong, 0, '.', '.') . '<sup>đ</sup></h5>
             </div>';
     }
-  
-//: Đây là một điều kiện kiểm tra nếu biến $isCheckout không đúng, tức là đang ở chế độ xem giỏ hàng (không phải chế độ thanh toán).
+
+    //: Đây là một điều kiện kiểm tra nếu biến $isCheckout không đúng, tức là đang ở chế độ xem giỏ hàng (không phải chế độ thanh toán).
     if (!$isCheckout) { // kiểm tra nếu không phải ở chế độ thanh toán 
         echo '    <a href="index.php?act=checkout">
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Tiếp tục thanh toán</button>
@@ -246,10 +246,22 @@ function loadall_cart_count($idbill)
 function loadall_bill($iduser = 0)
 {
 
-    $sql = "select * from bill where 1";
-    if ($iduser > 0)
+    // $sql = "select * from bill where 1";
+    // if ($iduser > 0)
+    //     $sql .= " AND iduser=" . $iduser;
+    // $sql .= " order by id desc ";
+    // $listbill = pdo_query($sql);
+    // return $listbill;
+    $sql = "SELECT * FROM bill WHERE 1";
+    if ($iduser > 0) {
         $sql .= " AND iduser=" . $iduser;
-    $sql .= " order by id desc ";
+    }
+    $sql .= " ORDER BY CASE 
+                WHEN bill_status = '2' THEN 0  -- Sắp xếp đơn hàng đang giao lên đầu
+                WHEN bill_status = '0' THEN 1  -- Sắp xếp đơn hàng mới sau đơn hàng đang giao
+                ELSE 2 END,
+                ngaydathang DESC";
+
     $listbill = pdo_query($sql);
     return $listbill;
 }
@@ -260,7 +272,8 @@ function loadall_bill($iduser = 0)
 // }
 //gốc ở trên
 // Trước khi xóa đơn hàng, xóa tất cả chi tiết đơn hàng từ bảng cart
-function delete_donhang($id) {
+function delete_donhang($id)
+{
     // Trước hết, load chi tiết đơn hàng từ bảng cart
     $list_cart = loadall_cart($id);
 
@@ -276,9 +289,18 @@ function delete_donhang($id) {
 }
 
 // Hàm xóa một chi tiết đơn hàng từ bảng cart
-function delete_cart_item($cart_id) {
+function delete_cart_item($cart_id)
+{
     $sql = "delete from cart where id=" . $cart_id;
     pdo_execute($sql);
+}
+function update_trangthai_donhang($id_donhang, $trangthai_moi)
+{
+    $sql = "UPDATE bill SET bill_status = :trangthai WHERE id = :id";
+    $params = array(':trangthai' => $trangthai_moi, ':id' => $id_donhang);
+
+    // Thực hiện truy vấn cập nhật trạng thái trong cơ sở dữ liệu
+    pdo_execute($sql, $params);
 }
 function get_ttdh($n)
 {
