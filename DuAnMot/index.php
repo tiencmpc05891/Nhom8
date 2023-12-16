@@ -284,11 +284,24 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
             $listbaiviet = loadall_baiviet();
             include "site/post.php";
             break;
+        case 'detailpost':
+            if (isset($_GET['idpost']) && ($_GET['idpost'] > 0)) {
+                $id = $_GET['idpost'];
+                $onepost = loadone_baiviet($id);
+                extract($onepost);
+                $baiviet_cung_loai = load_baiviet_cungloai($id);
+
+                include "site/detailpost.php";
+            } else {
+                include "site/home.php";
+            }
+
+            break;
         case 'like':
             include "site/like.php";
             break;
         case 'contact':
-            
+
             include "site/contact.php";
             break;
         default:

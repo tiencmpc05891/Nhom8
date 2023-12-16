@@ -28,7 +28,12 @@ function update_baiviet($id, $tieude, $noidung, $img)
     // Chuẩn bị và thực thi truy vấn
     pdo_execute($sql, array($tieude, $noidung, $img, $id));
 }
-
+function load_baiviet_cungloai($id)
+{
+    $sql = "select * from post where id <> " . $id;
+    $listbaiviet = pdo_query($sql);
+    return $listbaiviet;
+}
 function loadone_baiviet($id)
 {
     $sql = "select * from post where id=" . $id;
