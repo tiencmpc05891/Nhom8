@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 class Mailer
 {
    
+
     public function sendMail($title, $content, $addressMail)
     {
         // Create an instance; passing `true` enables exceptions
@@ -23,31 +24,36 @@ class Mailer
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+            $mail->SMTPDebug = 0;  // Set to 0 to suppress debug output
             $mail->isSMTP();
-            $mail->charset = 'utf-8';                                   // Send using SMTP
-            $mail->Host = 'smtp.gmail.com';                            // Set the SMTP server to send through
-            $mail->SMTPAuth = true;                                    // Enable SMTP authentication
-            $mail->Username = 'leminhhuy1604@gmail.com';               // SMTP username
-            $mail->Password = 'fxyu dnmr csxk yjsp';                   // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           // Enable implicit TLS encryption
-            $mail->Port = 465;                                         // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->Charset = 'utf-8'; // Use 'Charset' instead of 'charset'
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'leminhhuy1604@gmail.com';
+            $mail->Password = 'fxyu dnmr csxk yjsp';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
 
             // Recipients
             $mail->setFrom('leminhhuy1604@gmail.com', 'Huy');
-            $mail->addAddress($addressMail);                          // Add a recipient
+            $mail->addAddress($addressMail);
 
             // Content
-            $mail->isHTML(true);                                       // Set email format to HTML
+            $mail->isHTML(true);
             $mail->Subject = $title;
             $mail->Body = $content;
 
             // Send the email
             $mail->send();
-            echo 'Message has been sent';
+            // You may want to remove the following echo statement
+            // or customize it based on your needs
+            // echo 'Message has been sent';
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            // You may want to log the error or handle it differently
+            // instead of echoing it to the user
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 }
+
 ?>

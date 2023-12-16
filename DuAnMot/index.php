@@ -100,12 +100,24 @@ if ((isset($_GET['act'])) && ($_GET['act'] != "")) {
 
                 // Kiểm tra và xử lý chi tiết đơn hàng
                 if (isset($_SESSION['mycart']) && !empty($_SESSION['mycart'])) {
+                    $content = "<h2>Chi tiết đơn hàng</h2>";
                     foreach ($_SESSION['mycart'] as $cart) {
                         insert_cart($iduser, $cart[0], $cart[2], $cart[1], $cart[3], $cart[4], $cart[5], $idbill);
+
+                        $result = checkemail($email);
+                        $content .= "<p><strong>Mã đơn hàng:</strong> {$cart[0]}</p>";
+                        $content .= "<p><strong>Sản phẩm:</strong> {$cart[1]}</p>";
+                        $content .= "<p><strong>Số lượng:</strong> {$cart[4]}</p>";
+                        $content .= "<p><strong>Thành tiền:</strong> {$cart[3]}</p>";
+                        $_SESSION['mail'] = $email;
+                        $title = "Thank you for your order ";
+                        $mail->sendMail($title, $content, $email);
+
                     }
                     // Xóa giỏ hàng của người dùng
                     $_SESSION['mycart'] = [];
                 }
+
             }
             $bill = loadone_bill($idbill);
             $billct = loadall_cart($idbill);
