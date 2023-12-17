@@ -19,6 +19,11 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <div class="d-flex justify-content-end">
+                <a href="index.php?act=bieudobill"> <button type="button" class="btn btn-primary mb-2">
+                        Xem biểu đồ
+                    </button></a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -58,7 +63,7 @@
                                                 <button type="submit" class="btn btn-success">Duyệt đơn hàng</button>
                                             </form>
                                         </td>
-                                        
+
                                         <td>
                                             <button class="btn btn-danger" type="button" onclick="confirmDeleteOrder(<?php echo $bill['id']; ?>)">Xóa</button>
                                         </td>

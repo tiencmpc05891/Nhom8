@@ -19,7 +19,11 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-
+        <div class="d-flex justify-content-end">
+                <a href="index.php?act=bieudotaikhoan"> <button type="button" class="btn btn-primary mb-2">
+                        Xem biểu đồ
+                    </button></a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">

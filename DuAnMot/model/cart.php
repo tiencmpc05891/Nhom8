@@ -332,3 +332,23 @@ function loadall_thongke()
     $listtk = pdo_query($sql);
     return $listtk;
 }
+
+function thongke_donhang_theo_trangthai()
+{
+    $sql = "SELECT bill_status, COUNT(*) AS countsp FROM bill GROUP BY bill_status";
+    $listtk = pdo_query($sql);
+
+    // Chuyển đổi số thành chuỗi trạng thái
+    foreach ($listtk as &$item) {
+        switch ($item['bill_status']) {
+            case '0':
+                $item['bill_status'] = 'Đơn hàng mới';
+                break;
+            case '2':
+                $item['bill_status'] = 'Đang giao hàng';
+                break;
+        }
+    }
+
+    return $listtk;
+}

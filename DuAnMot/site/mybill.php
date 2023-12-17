@@ -88,7 +88,10 @@
                             <td>' . $countsp . '</td>
                             <td>' . number_format($bill['total'], 0, ',', '.') . '</td>
                             <td>' . $ttdh . '</td>
-                            <td><a href="javascript:void(0);" onclick="confirmCancelOrder(' . $bill['id'] . ')" class="cancel-btn">Hủy đơn hàng</a></td>
+                            <td>   <a href="javascript:void(0);" onclick="confirmCancelOrder(' . $bill['id'] . ')" class="btn btn-danger cancel-btn">
+                            Hủy đơn hàng
+                            <input type="hidden" name="bill_id" value="' . $bill['id'] . '">
+                        </a></td>
                           </tr>';
             }
 

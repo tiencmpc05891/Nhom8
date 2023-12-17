@@ -77,3 +77,14 @@ function loadone_taikhoan($id)
 
     return $tk;
 }
+function count_by_role($listtaikhoan)
+{
+    $counts = array('role0' => 0, 'role1' => 0);
+
+    foreach ($listtaikhoan as $taikhoan) {
+        $role = 'role' . $taikhoan['role'];
+        $counts[$role]++;
+    }
+
+    return $counts;
+}

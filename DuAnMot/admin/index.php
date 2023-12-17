@@ -11,7 +11,7 @@ include "../model/post.php";
 include "../model/banner.php";
 
 include "head.php";
-
+$listthongke = loadall_thongke();
 // Kiểm tra nếu người dùng đã đăng nhập
 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     // Lấy thông tin về quyền (role) từ session
@@ -351,6 +351,15 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
             case 'bieudo':
                 $listthongke = loadall_thongke();
                 include "thongke/bieudo.php";
+                break;
+            case 'bieudobill':
+                $listtbill = loadall_bill();
+                include "bill/bieudobill.php";
+                break;
+            case 'bieudotaikhoan':
+                $listtk = loadall_taikhoan();
+                $roleCounts = count_by_role($listtk);
+                include "taikhoan/bieudotaikhoan.php";
                 break;
             case 'duyet_donhang':
                 if (isset($_POST['id'])) {
