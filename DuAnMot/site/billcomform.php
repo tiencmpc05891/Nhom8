@@ -5,10 +5,7 @@ function getPaymentMethodText($paymentMethod)
     switch ($paymentMethod) {
         case 1:
             return 'Thanh toán khi nhận hàng';
-        case 2:
-            return 'Ngân hàng';
-        case 3:
-            return 'Momo';
+
         default:
             return 'Không xác định';
     }

@@ -14,15 +14,16 @@
 </div>
 <!-- Cart End -->
 <script>
-    function updateQuantity(index, change) {
-        var quantityElement = document.getElementById('quantity-' + index);
-        var currentQuantity = parseInt(quantityElement.textContent);
-        var newQuantity = currentQuantity + change;
+function updateQuantity(index, change) {
+    var quantityElement = document.getElementById('quantity-' + index);
+    var currentQuantity = parseInt(quantityElement.textContent);
+    var newQuantity = currentQuantity + change;
 
-        if (newQuantity >= 1) {
-            quantityElement.textContent = newQuantity;
-            updateTotal();
-        }
+    if (newQuantity >= 1) {
+        quantityElement.textContent = newQuantity;
+        updateTotal(index, newQuantity);
+        updateGrandTotal();
     }
+}
 
 </script>

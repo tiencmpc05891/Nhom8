@@ -21,26 +21,26 @@ $listbanner = loadall_banner();
                     <li data-target="#header-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                <?php
-        foreach ($listbanner as $banner) {
-            extract($banner);
+                    <?php
+                    foreach ($listbanner as $banner) {
+                        extract($banner);
 
-            $img = $img_path . $img;
+                        $img = $img_path . $img;
 
-        ?>
-                    <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="<?php echo $img; ?>" style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"><?php echo $text1; ?></h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn"><?php echo $text2; ?></p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="index.php?act=shop">Mua ngay</a>
+                    ?>
+                        <div class="carousel-item position-relative active" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="<?php echo $img; ?>" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"><?php echo $text1; ?></h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn"><?php echo $text2; ?></p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="index.php?act=shop">Mua ngay</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                 
+
                     <?php } ?>
-                    
+
                 </div>
             </div>
         </div>
@@ -131,15 +131,10 @@ $listbanner = loadall_banner();
                         <a class="h6 text-decoration-none text-truncate" href="<?php echo $linksp; ?>"><?php echo $name; ?></a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5><?php echo number_format($price, 0, '.', '.'); ?>đ</h5>
-                            <h6 class="text-muted ml-2"><del><?php echo number_format($price, 0, '.', '.'); ?>đ</del></h6>
+                         
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(1,5k)</small>
+               
                         </div>
                         <form action="index.php?act=addtocart" method="post">
                             <input type="hidden" name="id" value="<?= $id ?>">
@@ -185,97 +180,55 @@ $listbanner = loadall_banner();
     </div>
 </div>
 <!-- Offer End -->
-
-
-<!-- Products Start -->
 <div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản phẩm hot</span></h2>
-    <div class="row px-xl-5">
-        <?php
-        foreach ($dssp_hot as $sp) {
-            extract($sp);
-            $linksp = "index.php?act=detail&idsp=" . $id;
-            $img = $img_path . $img;
-
-        ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="<?= $img ?>" alt="<?php echo $name; ?>">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i class="fa fa-search"></i></a>
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản phẩm HOT</span></h2>
+    <!-- Products Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel" data-items="4">
+                    <?php
+                    foreach ($dssp_hot as $sp) {
+                        extract($sp);
+                        $linksp = "index.php?act=detail&idsp=" . $id;
+                        $img = $img_path . $img;
+                    ?>
+                        <div class="item">
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <img class="img-fluid w-100" src="<?= $img ?>" alt="<?php echo $name; ?>">
+                                    <div class="product-action">
+                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                        <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                        <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center py-4">
+                                    <a class="h6 text-decoration-none text-truncate" href="<?php echo $linksp; ?>"><?php echo $name; ?></a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5><?php echo number_format($price, 0, '.', '.'); ?>đ</h5>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                          
+                                    </div>
+                                    <form action="index.php?act=addtocart" method="post">
+                                        <input type="hidden" name="id" value="<?= $id ?>">
+                                        <input type="hidden" name="name" value="<?= $name ?>">
+                                        <input type="hidden" name="img" value="<?= $img ?>">
+                                        <input type="hidden" name="price" value="<?= $price ?>">
+                                        <input type="hidden" name="soluong" value="1">
+                                        <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm vào giỏ hàng">
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="<?php echo $linksp; ?>"><?php echo $name; ?></a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5><?php echo number_format($price, 0, '.', '.'); ?>đ</h5>
-                            <h6 class="text-muted ml-2"><del><?php echo number_format($price, 0, '.', '.'); ?>đ</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(1,5k)</small>
-                        </div>
-                        <form action="index.php?act=addtocart" method="post">
-                            <input type="hidden" name="id" value="<?= $id ?>">
-                            <input type="hidden" name="name" value="<?= $name ?>">
-                            <input type="hidden" name="img" value="<?= $img ?>">
-                            <input type="hidden" name="price" value="<?= $price ?>">
-                            <input type="hidden" name="soluong" value="1">
-                            <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm vào giỏ hàng">
-                        </form>
-
-                    </div>
+                    <?php } ?>
                 </div>
-            </div>
-        <?php } ?>
-    </div>
-</div>
-<!-- Products End -->
-
-</div>
-</div>
-<!-- Products End -->
-
-
-<!-- Vendor Start -->
-<div class="container-fluid py-5">
-    <div class="row px-xl-5">
-        <div class="col">
-            <div class="owl-carousel vendor-carousel">
-                <div class="bg-light p-4">
-                    <img src="content/img/iphone-11-trang-600x600.jpg" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
-                <div class="bg-light p-4">
-                    <img src="" alt="">
-                </div>
+                <!-- Products End -->
             </div>
         </div>
     </div>
 </div>
+
 <!-- Vendor End -->

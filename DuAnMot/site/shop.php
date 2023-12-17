@@ -30,9 +30,10 @@ if (isset($titlepage) && $titlepage != "") {
     $title = "Sản Phẩm";
 }
 
+
+
 $iddm = isset($_GET['iddm']) ? $_GET['iddm'] : 0;
 $dssp = loadall_sanpham($kyw, $iddm);
-
 
 ?>
 
@@ -92,11 +93,11 @@ $dssp = loadall_sanpham($kyw, $iddm);
             <div class="bg-light p-4 mb-30">
                 <form>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="color-all">
-                        <label class="custom-control-label" for="price-all">Tất cả loại</label>
+                        <input type="checkbox" class="custom-control-input">
+                        <a href="index.php?act=shop" class="custom-control-label" for="price-all">Tất cả loại</a>
                         <span class="badge border font-weight-normal">4</span>
                     </div>
-                    <?php foreach ($dsdm as $dm): ?>
+                    <?php foreach ($dsdm as $dm) : ?>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="color-<?php echo $dm['id']; ?>">
                             <label class="custom-control-label" for="color-<?php echo $dm['id']; ?>">
@@ -125,8 +126,7 @@ $dssp = loadall_sanpham($kyw, $iddm);
                         </div>
                         <div class="ml-2">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                    data-toggle="dropdown">Sorting</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">Latest</a>
                                     <a class="dropdown-item" href="#">Popularity</a>
@@ -134,8 +134,7 @@ $dssp = loadall_sanpham($kyw, $iddm);
                                 </div>
                             </div>
                             <div class="btn-group ml-2">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                    data-toggle="dropdown">Showing</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">10</a>
                                     <a class="dropdown-item" href="#">20</a>
@@ -145,14 +144,14 @@ $dssp = loadall_sanpham($kyw, $iddm);
                         </div>
                     </div>
                 </div>
-               
+
 
                 <?php
                 foreach ($dssp as $sp) {
                     extract($sp);
                     $linksp = "index.php?act=detail&idsp=" . $sp['id'];
                     $img = $img_path . $img;
-                    ?>
+                ?>
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -160,10 +159,8 @@ $dssp = loadall_sanpham($kyw, $iddm);
                                     <img class="img-fluid w-100" src="<?= $img ?>" alt="">
                                 </a>
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i
-                                            class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i
-                                            class="fa fa-search"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="<?= $linksp ?>"><i class="fa fa-search"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 </div>
@@ -176,17 +173,10 @@ $dssp = loadall_sanpham($kyw, $iddm);
                                     <h5>
                                         <?= number_format($price, 0, '.', '.'); ?><sup>đ</sup>
                                     </h5>
-                                    <h6 class="text-muted ml-2"><del>
-                                            <?= number_format($price, 0, '.', '.'); ?><sup>đ</sup>
-                                        </del></h6>
+                             
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>(1,5k)</small>
+                          
                                 </div>
                                 <form action="index.php?act=addtocart" method="post">
                                     <input type="hidden" name="id" value="<?= $id ?>">
@@ -209,15 +199,45 @@ $dssp = loadall_sanpham($kyw, $iddm);
         </div>
         <div class="col-12">
             <nav>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled"><a class="page-link" href="#">Trang</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Trang tiếp</a></li>
-                </ul>
+                <?php
+                // Thực hiện truy vấn để đếm tổng số sản phẩm
+                $sql_count = "SELECT COUNT(*) as total FROM sanpham";
+                $row_count_result = pdo_query_one($sql_count);
+                $row_count = $row_count_result['total'];
+
+                // Số sản phẩm muốn hiển thị trên mỗi trang
+                $soSanPhamTrenMotTrang = 4;
+
+                // Tính tổng số trang
+                $tongSoTrang = ceil($row_count / $soSanPhamTrenMotTrang);
+
+                // Lấy số trang hiện tại từ URL
+                $trangHienTai = isset($_GET['page']) ? $_GET['page'] : 1;
+
+                // Hiển thị nút "Previous"
+                $previousPage = max($trangHienTai - 1, 1);
+                $previousIddm = $iddm - 1;
+
+                // Hiển thị các liên kết phân trang
+                echo '<ul class="pagination justify-content-center">';
+                echo '<a class="btn btn-secondary ' . ($trangHienTai == 1 ? 'disabled' : '') . '" href="index.php?act=shop&iddm=' . $previousIddm . '&page=' . $previousPage . '">Previous</a>';
+
+                for ($i = 1; $i <= $tongSoTrang; $i++) {
+                    echo '<li class="page-item ' . ($i == $trangHienTai ? 'active' : '') . '">';
+                    echo '<a class="page-link" href="index.php?act=shop&iddm=' . $i . '&page=' . $i . '">' . $i . '</a>';
+                    echo '</li>';
+                }
+
+                // Hiển thị nút "Next"
+                $nextPage = min($trangHienTai + 1, $tongSoTrang);
+                $nextIddm = $iddm + 1;
+
+                echo '<a class="btn btn-secondary ' . ($trangHienTai == $tongSoTrang ? 'disabled' : '') . '" href="index.php?act=shop&iddm=' . $nextIddm . '&page=' . $nextPage . '">Next</a>';
+                echo '</ul>';
+                ?>
             </nav>
         </div>
+
     </div>
 </div>
 <!-- Shop Product End -->

@@ -9,20 +9,20 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="member-info">
-                            <p class="member-name">Tên: Người Dùng 1</p>
-                            <p class="member-mssv">MSSV: PC12345</p>
+                            <p class="member-name">Tên: Cao Minh Tiến</p>
+                            <p class="member-mssv">MSSV: PC05891</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="member-info">
-                            <p class="member-name">Tên: Người Dùng 2</p>
+                            <p class="member-name">Tên: Nguyễn Phước Đạt</p>
                             <p class="member-mssv">MSSV: PC012345</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="member-info">
-                            <p class="member-name">Tên: Người Dùng 3</p>
-                            <p class="member-mssv">MSSV: PC12345</p>
+                            <p class="member-name">Tên: Lê Minh Huy</p>
+                            <p class="member-mssv">MSSV: PC06366</p>
                         </div>
                     </div>
                 </div>

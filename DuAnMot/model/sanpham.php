@@ -46,13 +46,15 @@ function update_sanpham($id, $iddm, $tensp, $giasp, $mota, $thongtin, $hinh)
     pdo_execute($sql);
 }
 
-function loadall_sanpham_noibat() {
-    $sql = "SELECT * FROM sanpham WHERE iddm = 9 ORDER BY id DESC LIMIT 0,8";
+function loadall_sanpham_noibat()
+{
+    $sql = "SELECT * FROM sanpham WHERE iddm = 6 ORDER BY id DESC LIMIT 0,4";
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
-function loadall_sanpham_hot() {
-    $sql = "SELECT * FROM sanpham WHERE iddm = 8 ORDER BY id DESC LIMIT 0,8";
+function loadall_sanpham_hot()
+{
+    $sql = "SELECT * FROM sanpham WHERE iddm = 5 ORDER BY id DESC LIMIT 0,8";
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
@@ -70,6 +72,33 @@ function loadall_sanpham($kyw = "", $iddm = 0)
     $listsanpham = pdo_query($sql);
     return $listsanpham;
 }
+//gốc ở trên
+
+function loadall_sanpham_shop($kyw = "", $iddm = 0, $page = 1, $soSanPhamTrenMotTrang = 9)
+{
+    //  vị trí bắt đầu của sản phẩm trên trang hiện tại
+    $viTriBatDau = ($page - 1) * $soSanPhamTrenMotTrang;
+
+    $sql = "SELECT * FROM sanpham WHERE 1 ";
+    if ($kyw != "") {
+        $sql .= " AND name LIKE '%" . $kyw . "%'";
+    }
+    if ($iddm > 0) {
+        $sql .= " AND iddm ='" . $iddm . "'";
+    }
+
+    // điều kiện sắp xếp theo id
+    $sql .= " ORDER BY id ASC";
+
+    //  lấy sản phẩm trong khoảng tương ứng với trang
+    $sql .= " LIMIT $viTriBatDau, $soSanPhamTrenMotTrang";
+
+    $listsanpham = pdo_query($sql);
+    return $listsanpham;
+}
+
+
+
 function load_ten_dm($iddm)
 {
     if ($iddm > 0) {
@@ -81,4 +110,3 @@ function load_ten_dm($iddm)
         return "";
     }
 }
-?>

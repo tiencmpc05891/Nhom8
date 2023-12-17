@@ -7,12 +7,11 @@ include "../model/sanpham.php";
 include "../model/taikhoan.php";
 include "../model/binhluan.php";
 include "../model/cart.php";
-
 include "../model/post.php";
 include "../model/banner.php";
 
 include "head.php";
-
+$listthongke = loadall_thongke();
 // Kiểm tra nếu người dùng đã đăng nhập
 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     // Lấy thông tin về quyền (role) từ session
@@ -42,12 +41,10 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                     } else {
                         $thongbao = "Thêm loại thành công";
                         insert_danhmuc($tenloai);
-
                     }
                 }
                 include "danhmuc/add.php";
                 break;
-
             case 'listdm':
                 $sql = "select * from danhmuc order by id desc";
                 $listdanhmuc = loadall_danhmuc();
@@ -56,7 +53,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
             case 'xoadm':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     if (delete_danhmuc($_GET['id'])) {
-
                     } else {
                         error_log("Xóa danh mục thất bại!"); // Log the error
                         http_response_code(500); // Set HTTP status code for internal server error
@@ -66,8 +62,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
-
-
             case 'suadm':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     $dm = loadone_danhmuc($_GET['id']);
@@ -88,7 +82,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "danhmuc/list.php";
                 break;
-    
             case 'addsp':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $iddm = $_POST['iddm'];
@@ -116,7 +109,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 include "sanpham/add.php";
                 break;
-
             case 'listsp':
                 if (isset($_POST['listok']) && ($_POST['listok'])) {
                     $kyw = $_POST['kyw'];
@@ -137,7 +129,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listsanpham = loadall_sanpham("", 0);
                 include "sanpham/list.php";
                 break;
-
             case 'suasp':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     $sanpham = loadone_sanpham($_GET['id']);
@@ -166,10 +157,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listdanhmuc = loadall_danhmuc();
                 $listsanpham = loadall_sanpham();
                 include "sanpham/list.php";
-
                 break;
-
-
             case 'addbv':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $tieude = $_POST['tieude'];
@@ -197,9 +185,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listbaiviet = loadall_baiviet();
                 include "post/add.php";
                 break;
-
-
-
             case 'listbv':
                 $listbaiviet = loadall_baiviet();
                 include "post/list.php";
@@ -240,10 +225,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listbaiviet = loadall_baiviet();
                 include "post/list.php";
                 break;
-
-
-
-
             case 'addbn':
                 if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                     $text1 = $_POST['text1'];
@@ -259,15 +240,12 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                             insert_banner($img, $text1, $text2);
                             $thongbao = "Thêm thành công!";
                         } else {
-
                         }
                     }
                 }
                 $listbanner = loadall_banner();
                 include "banner/add.php";
                 break;
-
-
             case 'listbn':
                 $listbanner = loadall_banner();
                 include "banner/list.php";
@@ -280,7 +258,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 $listbanner = loadall_banner();
                 include "banner/list.php";
                 break;
-
             case 'suabn':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     $banner = loadone_banner($_GET['id']);
@@ -362,13 +339,11 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
 
                     delete_binhluan($_GET['id']);
-
                 }
 
                 $listbinhluan = loadall_binhluan(0);
                 include "binhluan/list.php";
                 break;
-
             case 'thongke':
                 $listthongke = loadall_thongke();
                 include "thongke/list.php";
@@ -376,6 +351,31 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
             case 'bieudo':
                 $listthongke = loadall_thongke();
                 include "thongke/bieudo.php";
+                break;
+            case 'bieudobill':
+                $listtbill = loadall_bill();
+                include "bill/bieudobill.php";
+                break;
+            case 'bieudotaikhoan':
+                $listtk = loadall_taikhoan();
+                $roleCounts = count_by_role($listtk);
+                include "taikhoan/bieudotaikhoan.php";
+                break;
+            case 'duyet_donhang':
+                if (isset($_POST['id'])) {
+                    $id_donhang = $_POST['id'];
+
+                    // Thực hiện cập nhật trạng thái đơn hàng thành "Chờ giao hàng" trong cơ sở dữ liệu
+                    // Ví dụ:
+                    $trangthai_moi = 2; // Mã trạng thái mới, chẳng hạn là "Chờ giao hàng"
+                    update_trangthai_donhang($id_donhang, $trangthai_moi);
+
+                    // Có thể thực hiện các công việc khác sau khi duyệt đơn hàng, ví dụ: thông báo, gửi email, v.v.
+
+                    // Chuyển hướng hoặc thông báo về trạng thái thành công
+                    header('Location: index.php?act=listbill');
+                    exit;
+                }
                 break;
             case 'listbill':
                 if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
